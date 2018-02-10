@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.log$
+^\.json$
+^\.txt$
+README
