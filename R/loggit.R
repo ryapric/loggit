@@ -23,11 +23,16 @@ loggit <- function(log_lvl, log_msg, log_detail = "") {
   timestamp <- format(Sys.time(), format = .config$ts_format)
   
   if (!file.exists(.config$logfile)) {
-    logs_json <- data.frame(timestamp = timestamp,
-                            log_lvl = "INFO",
-                            log_msg = "Initial log",
-                            log_detail = "",
-                            stringsAsFactors = FALSE)
+    logs_json <- rbind(data.frame(timestamp = timestamp,
+                                  log_lvl = "INFO",
+                                  log_msg = "Initial log",
+                                  log_detail = "",
+                                  stringsAsFactors = FALSE),
+                       data.frame(timestamp = timestamp,
+                                  log_lvl = log_lvl,
+                                  log_msg = log_msg,
+                                  log_detail = log_detail,
+                                  stringsAsFactors = FALSE))
     jsonlite::write_json(logs_json, path = .config$logfile, pretty = TRUE)
   } else {
     logs_json <- jsonlite::read_json(.config$logfile, simplifyVector = TRUE)
