@@ -1,8 +1,9 @@
 Package: loggit
 Title: Effortless Logging in R
-Description: A very simple and easy-to-use set of familiar logging tools,
-    realized by injecting a logger function into base R's message(), warning(),
-    and stop() functions. No change in existing code is necessary to use this
+Description: A very simple and easy-to-use set of suspiciously-familiar
+    functions. A set of wrappings for base R's message(), warning(), and stop()
+    functions that maintain identical functionality, but also log the handler
+    message to a log file. No change in existing code is necessary to use this
     package.
 Version: 0.0.1
 Date: 2018-02-10

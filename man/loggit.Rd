@@ -15,9 +15,10 @@ loggit(log_lvl, log_msg, log_detail = "")
 \item{log_detail}{Additional detail recored along with a log message.}
 }
 \description{
-This function slots itself into a comfortable spot in the function
-definitions for base handler functions (\code{\link[base]{message}},
-\code{\link[base]{warning}}, and \code{\link[base]{stop}}), and logs their
+This function executes immediately before the function definitions for the
+base handler functions (\code{\link[base]{message}},
+\code{\link[base]{warning}}, and
+\code{\link[base]{stop}}/\code{\link[base]{stopifnot}}), and logs their
 timestamped output (a bit more verbosely) to a log file. The log file
 defaults to a \href{https://www.json.org/}{JSON} file, which is a portable
 file format that is easily parsed by many systems, but will eventually have a

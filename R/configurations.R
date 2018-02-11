@@ -10,9 +10,8 @@
 #' @param ts_format ISO date format.
 #'
 #' @export
-setTimeStampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S") {
+setTimestampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S") {
   .config$ts_format <- ts_format
-  invisible()
 }
 
 
@@ -33,5 +32,4 @@ setLogFile <- function(logfile = "loggit.json", folder = getwd()) {
     path_sep <- "/"
   }
   .config$logfile <- paste0(folder, path_sep, logfile)
-  invisible()
 }

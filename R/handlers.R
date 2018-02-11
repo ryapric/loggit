@@ -10,27 +10,8 @@
 #' @export
 message <- function(..., domain = NULL, appendLF = TRUE) {
   args <- list(...)
-  cond <- if (length(args) == 1L && inherits(args[[1L]], "condition")) {
-    if (nargs() > 1L) 
-      base::warning("additional arguments ignored in message()")
-    args[[1L]]
-  }
-  else {
-    msg <- .makeMessage(..., domain = domain, appendLF = appendLF)
-    call <- sys.call()
-    # Insert logger here =======================================================
-    loggit(log_lvl = "INFO", log_msg = gsub("\n", "", msg))
-    # ==========================================================================
-    simpleMessage(msg, call)
-  }
-  defaultHandler <- function(c) {
-    cat(conditionMessage(c), file = stderr(), sep = "")
-  }
-  withRestarts({
-    signalCondition(cond)
-    defaultHandler(cond)
-  }, muffleMessage = function() NULL)
-  invisible()
+  loggit(log_lvl = "INFO", log_msg = args[[1]])
+  base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
 
 
@@ -50,28 +31,9 @@ message <- function(..., domain = NULL, appendLF = TRUE) {
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
                     domain = NULL) {
   args <- list(...)
-  if (length(args) == 1L && inherits(args[[1L]], "condition")) {
-    cond <- args[[1L]]
-    if (nargs() > 1L) 
-      cat(gettext("additional arguments ignored in warning()"), 
-          "\n", sep = "", file = stderr())
-    msg <- conditionMessage(cond)
-    call <- conditionCall(cond)
-    # Insert logger here =======================================================
-    loggit(log_lvl = "WARN", log_msg = gsub("\n", "", msg))
-    # ==========================================================================
-    withRestarts({
-      .Internal(.signalCondition(cond, msg, call))
-      .Internal(.dfltWarn(msg, call))
-    }, muffleWarning = function() NULL)
-    invisible(msg)
-  } else {
-    msg <- .makeMessage(..., domain = domain)
-    # Insert logger here =======================================================
-    loggit(log_lvl = "WARN", log_msg = gsub("\n", "", msg))
-    # ==========================================================================
-    .Internal(warning(call., immediate., noBreaks., msg))
-  }
+  loggit(log_lvl = "WARN", log_msg = args[[1]])
+  base::warning(unlist(args), call. = call., immediate. = immediate.,
+                noBreaks. = noBreaks., domain = domain)
 }
 
 
@@ -91,26 +53,9 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 #' @export
 stop <- function(..., call. = TRUE, domain = NULL, log_detail = "") {
   args <- list(...)
-  stopifnot(is.character(log_detail))
-  if (length(args) == 1L && inherits(args[[1L]], "condition")) {
-    cond <- args[[1L]]
-    if (nargs() > 1L) 
-      warning("additional arguments ignored in stop()")
-    msg <- conditionMessage(cond)
-    call <- conditionCall(cond)
-    # Insert logger here =======================================================
-    loggit(log_lvl = "STOP", log_msg = gsub("\n", "", msg), log_detail = log_detail)
-    # ==========================================================================
-    .Internal(.signalCondition(cond, msg, call))
-    .Internal(.dfltStop(msg, call))
-  }
-  else {
-    msg <- .makeMessage(..., domain = domain)
-    # Insert logger here =======================================================
-    loggit(log_lvl = "STOP", log_msg = gsub("\n", "", msg), log_detail = log_detail)
-    # ==========================================================================
-    .Internal(stop(call., msg))
-  }
+  base::stopifnot(is.character(log_detail))
+  loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
+  base::stop(unlist(args), call. = call., domain = domain)
 }
 
 
@@ -127,31 +72,8 @@ stop <- function(..., call. = TRUE, domain = NULL, log_detail = "") {
 #' 
 # @export
 stopifnot <- function(..., log_detail = "") {
-  n <- length(ll <- list(...))
-  if (n == 0L) 
-    return(invisible())
-  Dparse <- function(call, cutoff = 60L) {
-    ch <- deparse(call, width.cutoff = cutoff)
-    if (length(ch) > 1L) 
-      paste(ch[1L], "....")
-    else ch
-  }
-  head <- function(x, n = 6L) x[seq_len(if (n < 0L) max(length(x) + 
-                                                          n, 0L) else min(n, length(x)))]
-  abbrev <- function(ae, n = 3L) paste(c(head(ae, n), if (length(ae) > 
-                                                          n) "...."), collapse = "\n  ")
-  mc <- match.call()
-  for (i in 1L:n) if (!(is.logical(r <- ll[[i]]) && !anyNA(r) && 
-                        all(r))) {
-    cl.i <- mc[[i + 1L]]
-    msg <- if (is.call(cl.i) && identical(cl.i[[1]], quote(all.equal)) && 
-               (is.null(ni <- names(cl.i)) || length(cl.i) == 3L || 
-                length(cl.i <- cl.i[!nzchar(ni)]) == 3L)) 
-      sprintf(gettext("%s and %s are not equal:\n  %s"), 
-              Dparse(cl.i[[2]]), Dparse(cl.i[[3]]), abbrev(r))
-    else sprintf(ngettext(length(r), "%s is not TRUE", "%s are not all TRUE"), 
-                 Dparse(cl.i))
-    stop(msg, call. = FALSE, domain = NA)
-  }
-  invisible()
+  args <- list(...)
+  base::stopifnot(is.character(log_detail))
+  loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
+  base::stopifnot(unlist(args))
 }

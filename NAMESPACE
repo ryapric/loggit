@@ -3,6 +3,6 @@
 export(loggit)
 export(message)
 export(setLogFile)
-export(setTimeStampFormat)
+export(setTimestampFormat)
 export(stop)
 export(warning)
