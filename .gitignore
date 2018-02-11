@@ -3,4 +3,5 @@
 *.txt
 *.swp
 .Rproj.user
-__README
+__README.*
+README.html
