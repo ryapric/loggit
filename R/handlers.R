@@ -74,10 +74,10 @@ stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = 
 #' @param log_detail Additional information to accompany log message. Must be a
 #'   string.
 #' 
-#' @export
+# @export
 stopifnot <- function(..., .loggit = TRUE, log_detail = "") {
   args <- list(...)
   base::stopifnot(is.character(log_detail))
-  if (.loggit) loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
+  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]], log_detail = log_detail)
   base::stopifnot(unlist(args))
 }
