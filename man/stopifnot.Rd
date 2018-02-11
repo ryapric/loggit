@@ -4,10 +4,12 @@
 \alias{stopifnot}
 \title{Ensure the Truth of R Expressions, and Output to Log}
 \usage{
-stopifnot(..., log_detail = "")
+stopifnot(..., .loggit = TRUE, log_detail = "")
 }
 \arguments{
 \item{...}{Same as base.}
+
+\item{.loggit}{Should loggit function execute? Defaults to \code{TRUE}.}
 
 \item{log_detail}{Additional information to accompany log message. Must be a
 string.}

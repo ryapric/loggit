@@ -4,7 +4,7 @@
 \alias{stop}
 \title{Stop Function Execution, and Output to Log}
 \usage{
-stop(..., call. = TRUE, domain = NULL, log_detail = "")
+stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "")
 }
 \arguments{
 \item{...}{Same as base.}
@@ -12,6 +12,8 @@ stop(..., call. = TRUE, domain = NULL, log_detail = "")
 \item{call.}{Same as base.}
 
 \item{domain}{Same as base.}
+
+\item{.loggit}{Should loggit function execute? Defaults to \code{TRUE}.}
 
 \item{log_detail}{Additional information to accompany log message. Must be a
 string.}

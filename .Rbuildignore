@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.log$
-^\.json$
-^\.txt$
+^.*\.log$
+^.*\.json$
+^.*\.txt$
 README

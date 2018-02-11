@@ -4,7 +4,7 @@
 \alias{message}
 \title{Diagnostic Messages, and Output to Log}
 \usage{
-message(..., domain = NULL, appendLF = TRUE)
+message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE)
 }
 \arguments{
 \item{...}{Same as base.}
@@ -12,6 +12,8 @@ message(..., domain = NULL, appendLF = TRUE)
 \item{domain}{Same as base.}
 
 \item{appendLF}{Same as base.}
+
+\item{.loggit}{Should loggit function execute? Defaults to \code{TRUE}.}
 }
 \description{
 Identical to base R's \code{\link[base]{message}}, but with included message

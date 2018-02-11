@@ -6,11 +6,12 @@
 #' @param ... Same as base.
 #' @param domain Same as base.
 #' @param appendLF Same as base.
+#' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #'
 #' @export
-message <- function(..., domain = NULL, appendLF = TRUE) {
+message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE) {
   args <- list(...)
-  loggit(log_lvl = "INFO", log_msg = args[[1]])
+  if(.loggit) loggit(log_lvl = "INFO", log_msg = args[[1]])
   base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
 
@@ -26,12 +27,13 @@ message <- function(..., domain = NULL, appendLF = TRUE) {
 #' @param immediate. Same as base.
 #' @param noBreaks. Same as base.
 #' @param domain Same as base.
+#' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #' 
 #' @export
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
-                    domain = NULL) {
+                    domain = NULL, .loggit = TRUE) {
   args <- list(...)
-  loggit(log_lvl = "WARN", log_msg = args[[1]])
+  if (.loggit) loggit(log_lvl = "WARN", log_msg = args[[1]])
   base::warning(unlist(args), call. = call., immediate. = immediate.,
                 noBreaks. = noBreaks., domain = domain)
 }
@@ -47,14 +49,15 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 #' @param ... Same as base.
 #' @param call. Same as base.
 #' @param domain Same as base.
+#' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #' @param log_detail Additional information to accompany log message. Must be a
 #'   string.
 #'
 #' @export
-stop <- function(..., call. = TRUE, domain = NULL, log_detail = "") {
+stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "") {
   args <- list(...)
   base::stopifnot(is.character(log_detail))
-  loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
+  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]], log_detail = log_detail)
   base::stop(unlist(args), call. = call., domain = domain)
 }
 
@@ -67,13 +70,14 @@ stop <- function(..., call. = TRUE, domain = NULL, log_detail = "") {
 #' log detail in log output.
 #'
 #' @param ... Same as base.
+#' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #' @param log_detail Additional information to accompany log message. Must be a
 #'   string.
 #' 
-# @export
-stopifnot <- function(..., log_detail = "") {
+#' @export
+stopifnot <- function(..., .loggit = TRUE, log_detail = "") {
   args <- list(...)
   base::stopifnot(is.character(log_detail))
-  loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
+  if (.loggit) loggit(log_lvl = "STOP", log_msg = args[[1]], log_detail = log_detail)
   base::stopifnot(unlist(args))
 }

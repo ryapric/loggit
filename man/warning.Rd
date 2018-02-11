@@ -5,7 +5,7 @@
 \title{Warning Messages, and Output to Log}
 \usage{
 warning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
-  domain = NULL)
+  domain = NULL, .loggit = TRUE)
 }
 \arguments{
 \item{...}{Same as base.}
@@ -17,6 +17,8 @@ warning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 \item{noBreaks.}{Same as base.}
 
 \item{domain}{Same as base.}
+
+\item{.loggit}{Should loggit function execute? Defaults to \code{TRUE}.}
 }
 \description{
 Identical to base R's \code{\link[base]{warning}}, but with included message
