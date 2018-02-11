@@ -1,5 +1,5 @@
 Package: loggit
-Title: Effortless Logging in R
+Title: Effortless Condition Logging in R
 Description: A very simple and easy-to-use set of suspiciously-familiar
     functions. A set of wrappings for base R's message(), warning(), and stop()
     functions that maintain identical functionality, but also log the handler

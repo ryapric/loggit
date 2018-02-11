@@ -14,6 +14,15 @@ setTimestampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S") {
   .config$ts_format <- ts_format
 }
 
+#' Get Timestamp Format
+#' 
+#' Get timestamp format for use in output logs.
+#'
+#' @export
+getTimestampFormat <- function() {
+  print(.config$ts_format)
+}
+
 
 
 #' Set Log File
@@ -32,4 +41,13 @@ setLogFile <- function(logfile = "loggit.json", folder = getwd()) {
     path_sep <- "/"
   }
   .config$logfile <- paste0(folder, path_sep, logfile)
+}
+
+#' Get Log File
+#'
+#' Get the log file that loggit will write to.
+#'
+#' @export
+getLogFile <- function() {
+  print(.config$logfile)
 }
