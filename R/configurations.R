@@ -1,6 +1,9 @@
 # Configuration Environment, to be used as needed.
 .config <- new.env(parent = emptyenv())
 
+# loggitall file
+.config$loggitall_file <- paste0(find.package("loggit"), "/loggitalls.txt")
+
 
 
 #' Set Timestamp Format

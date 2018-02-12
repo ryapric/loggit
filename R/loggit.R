@@ -48,3 +48,65 @@ loggit <- function(log_lvl, log_msg, log_detail = "") {
   invisible()
   
 }
+
+
+
+#' Log It All!
+#'
+#' This function creates backups of loaded R package \code{NAMESPACE} files, and
+#' adds the `loggit` package as an additional import to the package. On R
+#' termination, the backups are restored. This allows `loggit` to mask the base
+#' R condition handlers in all package functions, and not just those that you
+#' define or call.
+#'
+#' Note: I don't know if the original \code{NAMESPACE} files will be restored if
+#' R crashes before this finishes executing. Use at your own risk of
+#' reinstalling your packages!
+#'
+#' @param pkgs Character vector of package names, or something that can be
+#'   coerced to a character vector.
+loggitall <- function(pkgs) {
+  
+  pkgs <- unlist(pkgs)
+  
+  for (pkg in pkgs) {
+    ns_file <- paste0(find.package(pkg), "/NAMESPACE")
+    ns_bak <- paste0(ns_file, ".bak")
+    file.copy(from = ns_file, to = ns_bak)
+    cat("import(loggit)", file = ns_file, append = TRUE)
+  }
+  
+  cat(pkgs, file = .config$loggitall_file, sep = "\n", append = TRUE)
+  
+  invisible()
+  
+}
+
+
+
+#' Stop It All!
+#' 
+#' Revert the functionality of \code{\link{loggitall}}.
+stoppitall <- function() {
+  
+  pkgs <- readLines(.config$loggitall_file)
+  
+  for (pkg in pkgs) {
+    ns_file <- paste0(find.package(pkg), "/NAMESPACE")
+    ns_bak <- paste0(ns_file, ".bak")
+    file.remove(ns_file)
+    file.rename(from = ns_bak, to = ns_file)
+  }
+  
+  file.remove(.config$loggitall_file)
+  
+  invisible()
+  
+}
+
+
+
+#' I Think I Broke My NAMESPACEs!
+#' 
+#' If folder has ns_file and ns_bak, fix it.
+NULL
