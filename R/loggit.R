@@ -106,7 +106,7 @@ stoppitall <- function() {
 
 
 
-#' I Think I Broke My NAMESPACEs!
-#' 
-#' If folder has ns_file and ns_bak, fix it.
+# I Think I Broke My NAMESPACEs!
+#
+# If folder has ns_file and ns_bak, fix it.
 NULL

@@ -1,3 +1,9 @@
+# Set testing logfile
+logfile_old <- .config$logfile
+.config$logfile <- paste0(tempdir(), "/loggit.json")
+
+
+
 context("Handler replacements")
 
 test_that("message works as it does in base R", {
@@ -20,16 +26,13 @@ test_that("stopifnot works as it does in base R", {
   expect_error(loggit::stopifnot(is.numeric("this is also a stopifnot test")))
 })
 
-file.remove(file.path(.config$logfile))
+file.remove(.config$logfile)
 
 
 
 context("File output")
 
 test_that("loggit writes to JSON file", {
-  
-  logfile_old <- .config$logfile
-  .config$logfile <- "~/loggit.json"
   
   init_msg <- "Initial log"
   msg <- "this is a message"
@@ -48,7 +51,11 @@ test_that("loggit writes to JSON file", {
   expect_equal(logs_json$log_msg, c(init_msg, msg, warn, err))
   expect_equal(logs_json$log_detail[4], detail)
   
-  file.remove(file.path(.config$logfile))
-  .config$logfile <- logfile_old
-  
 })
+
+file.remove(.config$logfile)
+
+
+
+# Reset logfile? Just in case
+.config$logfile <- logfile_old
