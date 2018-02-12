@@ -93,8 +93,8 @@ That's it!
 However, if you care a bit more about the details or want more control:
 
 * You can control the output name & location of the log file using
-    `setLogFile(logfile, folder)`. `loggit` will not write to disk unless a condition
-    is raised, so you should specify this change early, if desired. You can see the
+    `setLogFile(logfile, folder)`. `loggit` *will not* write to disk unless a condition
+    is raised, but you should specify this change early, if desired. You can see the
     current log file path at package attachment, or by calling `getLogFile()`.
 * You can control the format of the timestamp in the logs; it defaults to ISO
     format `"%Y-%m-%d %H:%M:%S"`, but you may set it yourself using
@@ -109,18 +109,51 @@ However, if you care a bit more about the details or want more control:
     global option that the user can set, and leave the handlers without the
     argument.
 
-<br> <br>
+<br>
 
-### Notes on Expected Results
+### Note on *What* Gets Logged
 
-Note that currently, this package does not mask the handler functions included
-in *other* packages, _**including in base R**_; for example, running the
-following will throw an error as usual, but *will not* write to the log file:
+Note that this package does not mask the handler functions included in *other*
+packages, _**including in base R**_; for example, running the following will
+throw an error as usual, but *will not* write to the log file:
 
     > 2 + "a"
     Error in 2 + "a" : non-numeric argument to binary operator
     > dplyr::left_join(data.frame(a = 1), data.frame(b = 2))
     Error: `by` required, because the data sources have no common variables
+    > # Did loggit write these condition messages to the logfile?
+    > file.exists(loggit:::.config$logfile)
+    [1] FALSE
+
+This is integral to how R works with packages, and is by design; it has to do
+with [namespaces](http://r-pkgs.had.co.nz/namespace.html), which is how R looks
+for *what* to do when you ask it to do something. Basically, if a package you
+use doesn't have `loggit` in its `NAMESPACE` file, then its internal condition
+handlers won't be masked by `loggit`.
+
+If you really wish to have *all* condition messages logged by `loggit`, you can
+learn how to do this... _**but not from a Jedi**_.
+
+This package includes the `loggitall()` function, which works by creating
+temporary `NAMESPACE` files for packages supplied as arguments. These
+`NAMESPACE` files simply have `loggit` appended to the end. Being a relatively
+spooky function, you can only call `loggitall()` from what I like to call "deep
+namespacing", i.e. `loggit:::loggitall(pkgs)` (note the three colons).
+
+If you want to revert the modified `NAMESPACE` files to their original states,
+for any reason, just call `loggit:::stoppitall()` (three colons, two P's). This
+function takes no arguments, and will restore the old `NAMESPACE`s, even if
+used in a different R session. It works by tracking which packages have ever
+been edited, and applying fixes retroactively.
+
+Before you go around messing with source code, though, please read through the
+excellent [book by Hadley Wickham on R package
+development](http://r-pkgs.had.co.nz/). It's relatively short, and written
+quite well.
+
+_**NOTE**_: While they work as intended on a file system level, none of the above functions are actually masking the functions right now, so disregard until they work as intended.
+
+<br>
 
 ### Installation
 
@@ -132,6 +165,16 @@ following will throw an error as usual, but *will not* write to the log file:
 
     git clone https://github.com/ryapric/loggit.git
     R CMD INSTALL loggit
+
+To use the most recent development version of `loggit` in your own package, you
+can include it in your `Remotes:` field in your DESCRIPTION file:
+
+    Remotes: github::ryapric/loggit
+
+Note that packages being submitted to CRAN *cannot* have a `Remotes` field.
+Refer
+[here](https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html)
+for more info.
 
 <br>
 
