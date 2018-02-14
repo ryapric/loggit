@@ -22,6 +22,10 @@ your existing code, if you have already written handlers. Just install &
 load/import `loggit`, and instantly have your exceptions recorded (by default,
 to a [JSON](https://www.json.org/) file in your working directory).
 
+The included `loggit()` function is also very flexible on its own, and allows
+for any number of custom fields to be added to your logs, in addition to
+maintaining the aforementioned functionality.
+
 This package was inspired by a colleague's suggestion of how we could log our
 ETL workflow results in R, as well as the
 [rlogging](https://github.com/mjkallen/rlogging) package. When we looked at how
@@ -129,7 +133,7 @@ created; thanks, JSON and `dplyr`!
 
                 timestamp log_lvl  log_msg  log_detail     scientist
     1 2018-02-13 18:01:32    INFO Result 1          ""          Ryan
-    2 2018-02-13 18:02:32    INFO Result 2          ""      Mengyuan
+    2 2018-02-13 18:02:32    INFO Result 2          ""          Thom
     3 2018-02-13 18:03:32    INFO Result 3          ""          <NA>
 
 <br>
