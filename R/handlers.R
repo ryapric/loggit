@@ -9,9 +9,9 @@
 #' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #'
 #' @export
-message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE) {
+message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, log_detail = "") {
   args <- list(...)
-  if(.loggit) loggit(log_lvl = "INFO", log_msg = args[[1]])
+  if(.loggit) loggit(log_lvl = "INFO", log_msg = args[[1]], log_detail)
   base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
 
@@ -31,7 +31,7 @@ message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE) {
 #' 
 #' @export
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
-                    domain = NULL, .loggit = TRUE) {
+                    domain = NULL, .loggit = TRUE, log_detail = "") {
   args <- list(...)
   if (.loggit) loggit(log_lvl = "WARN", log_msg = args[[1]])
   base::warning(unlist(args), call. = call., immediate. = immediate.,
