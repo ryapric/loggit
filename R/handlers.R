@@ -7,11 +7,17 @@
 #' @param domain Same as base.
 #' @param appendLF Same as base.
 #' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
+#' @param log_detail Additional information to accompany log message. Must be a
+#'   string.
+#' @param echo Should loggit's log be echoed to the console, as well? Defaults
+#'   to \code{FALSE}.
 #'
 #' @export
-message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, log_detail = "") {
+message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
+                    log_detail = "", echo = FALSE) {
   args <- list(...)
-  if(.loggit) loggit(log_lvl = "INFO", log_msg = args[[1]], log_detail)
+  if(.loggit) loggit(log_lvl = "INFO", log_msg = args[[1]], log_detail,
+                     echo = echo)
   base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
 
@@ -28,12 +34,18 @@ message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, log_det
 #' @param noBreaks. Same as base.
 #' @param domain Same as base.
 #' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
+#' @param log_detail Additional information to accompany log message. Must be a
+#'   string.
+#' @param echo Should loggit's log be echoed to the console, as well? Defaults
+#'   to \code{FALSE}.
 #' 
 #' @export
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
-                    domain = NULL, .loggit = TRUE, log_detail = "") {
+                    domain = NULL, .loggit = TRUE, log_detail = "",
+                    echo = FALSE) {
   args <- list(...)
-  if (.loggit) loggit(log_lvl = "WARN", log_msg = args[[1]])
+  if (.loggit) loggit(log_lvl = "WARN", log_msg = args[[1]],
+                      log_detail = log_detail, echo = echo)
   base::warning(unlist(args), call. = call., immediate. = immediate.,
                 noBreaks. = noBreaks., domain = domain)
 }
@@ -52,12 +64,16 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 #' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #' @param log_detail Additional information to accompany log message. Must be a
 #'   string.
+#' @param echo Should loggit's log be echoed to the console, as well? Defaults
+#'   to \code{FALSE}.
 #'
 #' @export
-stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "") {
+stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE,
+                 log_detail = "", echo = FALSE) {
   args <- list(...)
   base::stopifnot(is.character(log_detail))
-  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]], log_detail = log_detail)
+  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]],
+                      log_detail = log_detail, echo = echo)
   base::stop(unlist(args), call. = call., domain = domain)
 }
 
@@ -73,11 +89,14 @@ stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = 
 #' @param .loggit Should loggit function execute? Defaults to \code{TRUE}.
 #' @param log_detail Additional information to accompany log message. Must be a
 #'   string.
+#' @param echo Should loggit's log be echoed to the console, as well? Defaults
+#'   to \code{FALSE}.
 #' 
 # @export
-stopifnot <- function(..., .loggit = TRUE, log_detail = "") {
+stopifnot <- function(..., .loggit = TRUE, log_detail = "", echo = FALSE) {
   args <- list(...)
   base::stopifnot(is.character(log_detail))
-  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]], log_detail = log_detail)
+  if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]],
+                      log_detail = log_detail, echo = echo)
   base::stopifnot(unlist(args))
 }

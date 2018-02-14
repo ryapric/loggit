@@ -4,7 +4,7 @@
 \alias{stopifnot}
 \title{Ensure the Truth of R Expressions, and Output to Log}
 \usage{
-stopifnot(..., .loggit = TRUE, log_detail = "")
+stopifnot(..., .loggit = TRUE, log_detail = "", echo = FALSE)
 }
 \arguments{
 \item{...}{Same as base.}
@@ -13,6 +13,9 @@ stopifnot(..., .loggit = TRUE, log_detail = "")
 
 \item{log_detail}{Additional information to accompany log message. Must be a
 string.}
+
+\item{echo}{Should loggit's log be echoed to the console, as well? Defaults
+to \code{FALSE}.}
 }
 \description{
 Identical to base R's \code{\link[base]{stopifnot}}, but with included

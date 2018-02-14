@@ -4,7 +4,8 @@
 \alias{stop}
 \title{Stop Function Execution, and Output to Log}
 \usage{
-stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "")
+stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "",
+  echo = FALSE)
 }
 \arguments{
 \item{...}{Same as base.}
@@ -17,6 +18,9 @@ stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "")
 
 \item{log_detail}{Additional information to accompany log message. Must be a
 string.}
+
+\item{echo}{Should loggit's log be echoed to the console, as well? Defaults
+to \code{FALSE}.}
 }
 \description{
 Identical to base R's \code{\link[base]{stop}}, but with included message
