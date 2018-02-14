@@ -4,7 +4,7 @@
 \alias{loggit}
 \title{Log Message to Output File}
 \usage{
-loggit(log_lvl, log_msg, log_detail = "")
+loggit(log_lvl, log_msg, log_detail = "", ...)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
@@ -13,6 +13,11 @@ loggit(log_lvl, log_msg, log_detail = "")
 \item{log_msg}{Main log message.}
 
 \item{log_detail}{Additional detail recored along with a log message.}
+
+\item{...}{A named \code{list} or named \code{vector} (each element of length
+one) of other custom fields you wish to log. You do not need to explicitly
+provide these fields as a formal list or vector, as shown in the example; R
+handles the coercion.}
 }
 \description{
 This function executes immediately before the function definitions for the
@@ -27,4 +32,9 @@ file format that is easily parsed by many systems, but will eventually have a
 \details{
 While this function has an intended use of logging handler messages without
 any direct user interaction, it is flexible enough to be used as you see fit.
+}
+\examples{
+ \donttest{loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+  sure = "why not?", like = 2, or = 10, what = "ever")}
+
 }
