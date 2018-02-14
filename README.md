@@ -1,7 +1,7 @@
 ---
 title: "Effortless Exception Logging in R"
 author: "Ryan Price <ryapric@gmail.com>"
-date: "2018-02-13"
+date: "2018-02-14"
 output:
   html_document:
     keep_md: TRUE
@@ -115,22 +115,22 @@ provided. If not, then the misspelling will cause *another* field to be
 created, and (the `data frame` version of) your log file will look like this:
 
     > loggit("INFO", "Result 1", scientist = "Ryan")
-    > loggit("INFO", "Result 2", scietist = "Ryan")
+    > loggit("INFO", "Result 2", scietist = "Thomas")
 
                 timestamp log_lvl  log_msg  log_detail scientist scietist
     1 2018-02-13 18:01:32    INFO Result 1          ""      Ryan     <NA>
-    2 2018-02-13 18:02:32    INFO Result 2          ""      <NA>     Ryan
+    2 2018-02-13 18:02:32    INFO Result 2          ""      <NA>   Thomas
 
 Also note that *you __do not always__ have to supply a custom field* once it is
 created; thanks, JSON and `dplyr`!
 
     > loggit("INFO", "Result 1", scientist = "Ryan")
-    > loggit("INFO", "Result 2", scientist = "Mengyuan")
+    > loggit("INFO", "Result 2", scientist = "Thomas")
     > loggit("INFO", "Result 3")
 
                 timestamp log_lvl  log_msg  log_detail     scientist
     1 2018-02-13 18:01:32    INFO Result 1          ""          Ryan
-    2 2018-02-13 18:02:32    INFO Result 2          ""          Thom
+    2 2018-02-13 18:02:32    INFO Result 2          ""        Thomas
     3 2018-02-13 18:03:32    INFO Result 3          ""          <NA>
 
 <br>
