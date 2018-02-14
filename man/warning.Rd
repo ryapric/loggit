@@ -5,7 +5,7 @@
 \title{Warning Messages, and Output to Log}
 \usage{
 warning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
-  domain = NULL, .loggit = TRUE)
+  domain = NULL, .loggit = TRUE, log_detail = "")
 }
 \arguments{
 \item{...}{Same as base.}

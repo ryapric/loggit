@@ -20,13 +20,15 @@
 #'   one) of other custom fields you wish to log. You do not need to explicitly
 #'   provide these fields as a formal list or vector, as shown in the example; R
 #'   handles the coercion.
+#' @param echo Should a message be printed to the console as well? Defaults to
+#'   \code{TRUE}.
 #'
 #' @examples
 #'  \donttest{loggit("INFO", "This is a message", but_maybe = "you want more fields?",
 #'   sure = "why not?", like = 2, or = 10, what = "ever")}
 #'
 #' @export
-loggit <- function(log_lvl, log_msg, log_detail = "", ...) {
+loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
   
   timestamp <- format(Sys.time(), format = .config$ts_format)
   
@@ -62,6 +64,8 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ...) {
     logs_json <- dplyr::bind_rows(logs_json, log_df)
     jsonlite::write_json(logs_json, path = .config$logfile, pretty = TRUE)
   }
+  
+  if (echo) base::message(paste(log_lvl, log_msg, collapse = ": "))
   
   invisible()
   

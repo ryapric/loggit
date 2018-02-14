@@ -4,7 +4,7 @@
 \alias{loggit}
 \title{Log Message to Output File}
 \usage{
-loggit(log_lvl, log_msg, log_detail = "", ...)
+loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
@@ -18,6 +18,9 @@ loggit(log_lvl, log_msg, log_detail = "", ...)
 one) of other custom fields you wish to log. You do not need to explicitly
 provide these fields as a formal list or vector, as shown in the example; R
 handles the coercion.}
+
+\item{echo}{Should a message be printed to the console as well? Defaults to
+\code{TRUE}.}
 }
 \description{
 This function executes immediately before the function definitions for the

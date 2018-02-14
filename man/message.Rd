@@ -4,7 +4,8 @@
 \alias{message}
 \title{Diagnostic Messages, and Output to Log}
 \usage{
-message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE)
+message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
+  log_detail = "")
 }
 \arguments{
 \item{...}{Same as base.}
