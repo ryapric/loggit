@@ -8,7 +8,7 @@ loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
-"WARN", and "STOP" ("ERROR") are common.}
+"WARN", and "ERROR" are common.}
 
 \item{log_msg}{Main log message.}
 
@@ -20,7 +20,7 @@ provide these fields as a formal list or vector, as shown in the example; R
 handles the coercion.}
 
 \item{echo}{Should a message be printed to the console as well? Defaults to
-\code{TRUE}.}
+\code{TRUE}, and is truncated to just the level & message of the log.}
 }
 \description{
 This function executes immediately before the function definitions for the

@@ -13,7 +13,7 @@
 #' any direct user interaction, it is flexible enough to be used as you see fit.
 #'
 #' @param log_lvl Level of log output. In actual practice, one of "INFO",
-#'   "WARN", and "STOP" ("ERROR") are common.
+#'   "WARN", and "ERROR" are common.
 #' @param log_msg Main log message.
 #' @param log_detail Additional detail recored along with a log message.
 #' @param ... A named \code{list} or named \code{vector} (each element of length
@@ -21,7 +21,7 @@
 #'   provide these fields as a formal list or vector, as shown in the example; R
 #'   handles the coercion.
 #' @param echo Should a message be printed to the console as well? Defaults to
-#'   \code{TRUE}.
+#'   \code{TRUE}, and is truncated to just the level & message of the log.
 #'
 #' @examples
 #'  \donttest{loggit("INFO", "This is a message", but_maybe = "you want more fields?",
@@ -35,7 +35,8 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
   .dots <- list(...)
   
   if (length(.dots) > 0) {
-    if (any(unlist(lapply(.dots, length)) > 1)) stop("Each custom log field must be of length one, or else your logs will be multiplied!")
+    if (any(unlist(lapply(.dots, length)) > 1))
+      stop("Each custom log field must be of length one, or else your logs will be multiplied!")
     log_df <- data.frame(
       timestamp = timestamp,
       log_lvl = log_lvl,
@@ -65,7 +66,7 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
     jsonlite::write_json(logs_json, path = .config$logfile, pretty = TRUE)
   }
   
-  if (echo) base::message(paste(log_lvl, log_msg, collapse = ": "))
+  if (echo) base::message(paste(c(log_lvl, log_msg), collapse = ": "))
   
   invisible()
   
