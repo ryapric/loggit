@@ -9,7 +9,7 @@ Version: 0.1.0
 Date: 2018-02-10
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("cre", "aut")))
-License: GPL-3
+License: MIT + file LICENSE
 Imports:
   dplyr,
   jsonlite
