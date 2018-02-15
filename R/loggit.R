@@ -53,7 +53,7 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
       stringsAsFactors = FALSE)
   }
   
-  if (!file.exists(.config$logfile)) {
+  if (!file.exists(.config$logfile) || length(readLines(.config$logfile)) == 0) {
     logs_json <- dplyr::bind_rows(data.frame(timestamp = timestamp,
                                              log_lvl = "INFO",
                                              log_msg = "Initial log",
