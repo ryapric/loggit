@@ -4,5 +4,4 @@
 ^.*\.json$
 ^.*\.txt$
 README
-NEWS.md
 cran-comments.md
