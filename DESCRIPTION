@@ -1,24 +1,25 @@
 Package: loggit
-Title: Effortless Condition Logging in R
+Title: Effortless Exception Logging in R
 Description:
-    A very simple and easy-to-use set of suspiciously-familiar functions. A set
-    of wrappings for base R's message(), warning(), and stop() functions that
-    maintain identical functionality, but also log the exception handler's
-    message to a log file. The logging function that the new handlers call,
-    loggit(), is exported as well, to provide powerful customization over the
-    structure of your logs. No change in existing code is necessary to use this
+    A very simple and easy-to-use set of suspiciously-familiar functions. loggit
+    provides a set of wrappings for base R's message(), warning(), and stop()
+    functions that maintain identical functionality, but also log the handler
+    message to a JSON log file. While mostly automatic, powerful custom logging
+    is available via these handlers' logging function, loggit(), which is also
+    exported for use. No change in existing code is necessary to use this
     package.
 Version: 0.2.0
-Date: 2018-02-10
+Date: 2018-02-17
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("cre", "aut")))
 License: MIT + file LICENSE
+Depends: R (>= 3.4.0)
 Imports:
-  dplyr,
-  jsonlite
+  dplyr (>= 0.7.4),
+  jsonlite (>= 1.5)
 Suggests:
-  knitr,
-  rmarkdown,
-  testthat
+  knitr (>= 1.19),
+  rmarkdown (>= 1.8),
+  testthat (>= 2.0.0)
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
