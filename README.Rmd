@@ -1,5 +1,5 @@
 ---
-title: "Effortless Exception Logging in R"
+title: "Effortless Exception Logging in R: loggit!"
 author: "Ryan Price <ryapric@gmail.com>"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
@@ -190,7 +190,8 @@ be patient, as this feature is in the works.
 
   Or, clone & build from source:
 
-    git clone https://github.com/ryapric/loggit.git
+    cd /path/to/your/repos
+    git clone https://github.com/ryapric/loggit.git loggit
     R CMD INSTALL loggit
 
 To use the most recent development version of `loggit` in your own package, you

@@ -1,7 +1,7 @@
 ---
 title: "Effortless Exception Logging in R"
 author: "Ryan Price <ryapric@gmail.com>"
-date: "2018-02-14"
+date: "2018-02-17"
 output:
   html_document:
     keep_md: TRUE
@@ -187,7 +187,8 @@ be patient, as this feature is in the works.
 
   Or, clone & build from source:
 
-    git clone https://github.com/ryapric/loggit.git
+    cd /path/to/your/repos
+    git clone https://github.com/ryapric/loggit.git loggit
     R CMD INSTALL loggit
 
 To use the most recent development version of `loggit` in your own package, you

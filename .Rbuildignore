@@ -4,3 +4,4 @@
 ^.*\.json$
 ^.*\.txt$
 README
+cran-comments.md
