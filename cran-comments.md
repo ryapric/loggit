@@ -4,7 +4,14 @@
 * win-builder (devel)
 
 ## R CMD check results
-There were no ERRORs, WARNINGs, or NOTEs. 
+There were no ERRORs, WARNINGs.
+
+There was 1 NOTE:
+
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: 'Ryan Price <ryapric@gmail.com>'
+
+New submission
 
 ## Downstream dependencies
 There are no downstream/reverse dependencies for this package, as it is an
