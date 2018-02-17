@@ -4,12 +4,13 @@
 \alias{setLogFile}
 \title{Set Log File}
 \usage{
-setLogFile(logfile = "loggit.json", folder = getwd())
+setLogFile(logfile = paste0(getwd(), "/", "loggit.json"), confirm = TRUE)
 }
 \arguments{
-\item{logfile}{Name of log file.}
+\item{logfile}{Full path to log file. Until other output formats are
+introduced, the file name must end in ".json".}
 
-\item{folder}{Folder in which the log file should exist.}
+\item{confirm}{Print confirmation of log file setting? Defaults to \code{TRUE}.}
 }
 \description{
 Set the log file that loggit will write to. Defaults to one called

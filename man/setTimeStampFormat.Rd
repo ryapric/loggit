@@ -4,10 +4,13 @@
 \alias{setTimestampFormat}
 \title{Set Timestamp Format}
 \usage{
-setTimestampFormat(ts_format = "\%Y-\%m-\%d \%H:\%M:\%S")
+setTimestampFormat(ts_format = "\%Y-\%m-\%d \%H:\%M:\%S", confirm = TRUE)
 }
 \arguments{
 \item{ts_format}{ISO date format.}
+
+\item{confirm}{Print confirmation of timestamp formate setting? Defaults to
+\code{TRUE}.}
 }
 \description{
 Set timestamp format for use in output logs.

@@ -1,11 +1,14 @@
 Package: loggit
 Title: Effortless Condition Logging in R
-Description: A very simple and easy-to-use set of suspiciously-familiar
-    functions. A set of wrappings for base R's message(), warning(), and stop()
-    functions that maintain identical functionality, but also log the handler
-    message to a log file. No change in existing code is necessary to use this
+Description:
+    A very simple and easy-to-use set of suspiciously-familiar functions. A set
+    of wrappings for base R's message(), warning(), and stop() functions that
+    maintain identical functionality, but also log the exception handler's
+    message to a log file. The logging function that the new handlers call,
+    loggit(), is exported as well, to provide powerful customization over the
+    structure of your logs. No change in existing code is necessary to use this
     package.
-Version: 0.1.0
+Version: 0.2.0
 Date: 2018-02-10
 Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("cre", "aut")))
@@ -18,3 +21,4 @@ Suggests:
   rmarkdown,
   testthat
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

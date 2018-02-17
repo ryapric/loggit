@@ -1,9 +1,10 @@
 .onLoad <- function(libname, pkgname) {
-  setTimestampFormat()
-  setLogFile()
+  setTimestampFormat(confirm = FALSE)
+  setLogFile(confirm = FALSE)
 }
 
 .onAttach <- function(libname, pkgname) {
+  
   pkgversion <- read.dcf(system.file("DESCRIPTION", package = pkgname),
                          fields = "Version")
   msg <- paste("Package", pkgname, "version", pkgversion, "\n",

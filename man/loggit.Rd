@@ -14,23 +14,25 @@ loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 
 \item{log_detail}{Additional detail recored along with a log message.}
 
-\item{...}{A named \code{list} or named \code{vector} (each element of length
-one) of other custom fields you wish to log. You do not need to explicitly
-provide these fields as a formal list or vector, as shown in the example; R
-handles the coercion.}
+\item{...}{A named \code{list} or named \code{vector} (each element of length one) of
+other custom fields you wish to log. You do not need to explicitly provide
+these fields as a formal list or vector, as shown in the example; R handles
+the coercion.}
 
 \item{echo}{Should a message be printed to the console as well? Defaults to
-\code{TRUE}, and is truncated to just the level & message of the log.}
+\code{TRUE}, and is truncated to just the level & message of the log. This
+argument is passed as \code{FALSE} when called from \code{loggit}'s handlers, since
+they still call base R's handlers at the end of execution, all of which
+print to the console as well.}
 }
 \description{
 This function executes immediately before the function definitions for the
-base handler functions (\code{\link[base]{message}},
-\code{\link[base]{warning}}, and
-\code{\link[base]{stop}}/\code{\link[base]{stopifnot}}), and logs their
-timestamped output (a bit more verbosely) to a log file. The log file
-defaults to a \href{https://www.json.org/}{JSON} file, which is a portable
-file format that is easily parsed by many systems, but will eventually have a
-\code{.txt} option as well.
+base handler functions (\link[base:message]{message}, \link[base:warning]{warning},
+and \link[base:stop]{stop}, and logs their timestamped output (a bit more
+verbosely) to a log file. The log file defaults to a
+\href{https://www.json.org/}{JSON} file, which is a portable file format that is
+easily parsed by many systems, but will eventually have a \code{.txt} option as
+well.
 }
 \details{
 While this function has an intended use of logging handler messages without
