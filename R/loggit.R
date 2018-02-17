@@ -14,7 +14,7 @@
 #' @param log_lvl Level of log output. In actual practice, one of "INFO",
 #'   "WARN", and "ERROR" are common.
 #' @param log_msg Main log message.
-#' @param log_detail Additional detail recored along with a log message.
+#' @param log_detail Additional detail recorded along with a log message.
 #' @param ... A named `list` or named `vector` (each element of length one) of
 #'   other custom fields you wish to log. You do not need to explicitly provide
 #'   these fields as a formal list or vector, as shown in the example; R handles

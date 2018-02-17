@@ -12,7 +12,7 @@ loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 
 \item{log_msg}{Main log message.}
 
-\item{log_detail}{Additional detail recored along with a log message.}
+\item{log_detail}{Additional detail recorded along with a log message.}
 
 \item{...}{A named \code{list} or named \code{vector} (each element of length one) of
 other custom fields you wish to log. You do not need to explicitly provide
