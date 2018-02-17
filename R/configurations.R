@@ -8,7 +8,7 @@
 #' Set timestamp format for use in output logs.
 #'
 #' @param ts_format ISO date format.
-#' @param confirm Print confirmation of timestamp formate setting? Defaults to
+#' @param confirm Print confirmation of timestamp format setting? Defaults to
 #'   `TRUE`.
 #'
 #' @export
