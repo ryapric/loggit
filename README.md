@@ -1,5 +1,5 @@
 ---
-title: "Effortless Exception Logging in R"
+title: "Effortless Exception Logging in R: loggit!"
 author: "Ryan Price <ryapric@gmail.com>"
 date: "2018-02-17"
 output:
@@ -181,11 +181,16 @@ be patient, as this feature is in the works.
 
 ### Installation
 
-  Via [devtools](https://github.com/hadley/devtools):
+You can install the latest CRAN release of `loggit` via
+`install.packages("loggit")`.
+
+Or, to get the latest development version from GitHub --
+
+Via [devtools](https://github.com/hadley/devtools):
 
     devtools::install_github("ryapric/loggit")
 
-  Or, clone & build from source:
+Or, clone & build from source:
 
     cd /path/to/your/repos
     git clone https://github.com/ryapric/loggit.git loggit
