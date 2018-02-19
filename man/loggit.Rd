@@ -8,7 +8,7 @@ loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
-"WARN", and "ERROR" are common.}
+"WARN", and "ERROR" are common, but any string may be supplied.}
 
 \item{log_msg}{Main log message.}
 

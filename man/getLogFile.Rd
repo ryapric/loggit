@@ -9,3 +9,7 @@ getLogFile()
 \description{
 Get the log file that loggit will write to.
 }
+\examples{
+getLogFile()
+
+}

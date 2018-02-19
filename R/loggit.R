@@ -12,7 +12,7 @@
 #' any direct user interaction, it is flexible enough to be used as you see fit.
 #'
 #' @param log_lvl Level of log output. In actual practice, one of "INFO",
-#'   "WARN", and "ERROR" are common.
+#'   "WARN", and "ERROR" are common, but any string may be supplied.
 #' @param log_msg Main log message.
 #' @param log_detail Additional detail recorded along with a log message.
 #' @param ... A named `list` or named `vector` (each element of length one) of
@@ -33,11 +33,12 @@
 loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
   
   if (.config$templogfile && !.config$seenmessage) {
-    warning(paste0("loggit has no persistent log file. Please set with ",
-                   "setLogFile(logfile), or see package?loggit for more help. ",
-                   "Otherwise, you can recover your logs from THIS R SESSION ONLY ",
+    base::warning(paste0("loggit has no persistent log file. Please set with ",
+                   "setLogFile(logfile), or see package?loggit for more help.\n ",
+                   "Otherwise, you can recover your logs (from THIS R SESSION ONLY) ",
                    "via copying ", .config$logfile, " to a persistent folder."))
-                   .config$seenmessage <- TRUE
+    if (log_detail == "") log_detail <- "User was warned about non-persistent log file."
+    .config$seenmessage <- TRUE
   } else {
     .config$templogfile <- FALSE
   }
@@ -48,7 +49,7 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
   
   if (length(.dots) > 0) {
     if (any(unlist(lapply(.dots, length)) > 1))
-      stop("Each custom log field must be of length one, or else your logs will be multiplied!")
+      base::stop("Each custom log field must be of length one, or else your logs will be multiplied!")
     log_df <- data.frame(
       timestamp = timestamp,
       log_lvl = log_lvl,

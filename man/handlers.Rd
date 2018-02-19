@@ -49,3 +49,11 @@ These exception handlers are identical to base R's \link[base:message]{message},
 \link[base:warning]{warning}, and \link[base:stop]{stop}, but with included logging
 of the exception messages.
 }
+\examples{
+if (2 < 1) message("Don't say such silly things!")
+
+if (2 < 1) warning("You may want to review that math, and so this is your warning")
+
+if (2 < 1) stop("This is a completely false condition, which throws an error")
+
+}

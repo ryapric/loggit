@@ -28,6 +28,7 @@ setLogFile <- function(logfile = NULL, confirm = TRUE) {
     if (substr(logfile, nchar(logfile) - 4, nchar(logfile)) != ".json")
       base::stop("Log file path must be explcitly JSON, i.e. end in '.json'")
     .config$logfile <- logfile
+    .config$templogfile <- FALSE
     if (confirm) print(paste0("Log file set to ", logfile))
     
   }
@@ -39,6 +40,8 @@ setLogFile <- function(logfile = NULL, confirm = TRUE) {
 #' Get Log File
 #'
 #' Get the log file that loggit will write to.
+#' 
+#' @examples getLogFile()
 #'
 #' @export
 getLogFile <- function() {
@@ -56,7 +59,7 @@ getLogFile <- function() {
 #' @param confirm Print confirmation of timestamp format setting? Defaults to
 #'   `TRUE`.
 #'   
-#' @examples getTimestampFormat()
+#' @examples setTimestampFormat("%Y-%m-%d %H:%M:%S")
 #'
 #' @export
 setTimestampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S", confirm = TRUE) {
@@ -68,6 +71,8 @@ setTimestampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S", confirm = TRUE) 
 #' Get Timestamp Format
 #' 
 #' Get timestamp format for use in output logs.
+#' 
+#' @examples getTimestampFormat()
 #'
 #' @export
 getTimestampFormat <- function() {

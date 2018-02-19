@@ -1,6 +1,6 @@
-# Set testing logfile
-logfile_old <- .config$logfile
-.config$logfile <- paste0(tempdir(), "/loggit.json")
+# Prevent warning from being raised by testthat's loggit() call
+.config$seenmessage_old <- .config$seenmessage
+.config$seenmessage <- TRUE
 
 
 
@@ -55,7 +55,4 @@ test_that("loggit writes to JSON file", {
 
 file.remove(.config$logfile)
 
-
-
-# Reset logfile? Just in case
-.config$logfile <- logfile_old
+.config$seenmessage <- .config$seenmessage_old

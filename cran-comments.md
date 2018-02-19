@@ -1,3 +1,16 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Changed the functionality of the loggit() function to instead write to a file
+in tempdir(), unless the user explicitly requests a different output
+location/file
+
+* Removed the redundant "in R" from the DESCRIPTION file title field
+
+* Added single quotes around software/package names in DESCRIPTION
+
+* Added more executable examples to the .Rd files
+
 ## Test environments
 * Local Windows 10 install, R 3.4.3
 * Local Lubuntu 17.10 (VirtualBox), R 3.4.3

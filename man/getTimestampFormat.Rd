@@ -9,3 +9,7 @@ getTimestampFormat()
 \description{
 Get timestamp format for use in output logs.
 }
+\examples{
+getTimestampFormat()
+
+}

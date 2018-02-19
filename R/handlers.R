@@ -18,6 +18,8 @@ NULL
 #' @rdname handlers
 #' 
 #' @inheritParams base::message
+#' 
+#' @examples if (2 < 1) message("Don't say such silly things!")
 #'
 #' @export
 message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
@@ -33,6 +35,8 @@ message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
 #' @rdname handlers
 #'
 #' @inheritParams base::warning
+#' 
+#' @examples if (2 < 1) warning("You may want to review that math, and so this is your warning")
 #' 
 #' @export
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
@@ -51,6 +55,8 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 #' 
 #' @inheritParams base::stop
 #' 
+#' @examples if (2 < 1) stop("This is a completely false condition, which throws an error")
+#' 
 #' @export
 stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE,
                  log_detail = "", echo = FALSE) {
@@ -60,18 +66,3 @@ stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE,
                       log_detail = log_detail, echo = echo)
   base::stop(unlist(args), call. = call., domain = domain)
 }
-
-
-
-# @rdname handlers
-#
-# @inheritParams base::stopifnot
-#
-# @export
-# stopifnot <- function(..., .loggit = TRUE, log_detail = "", echo = FALSE) {
-#   args <- list(...)
-#   base::stopifnot(is.character(log_detail))
-#   if (.loggit) loggit(log_lvl = "ERROR", log_msg = args[[1]],
-#                       log_detail = log_detail, echo = echo)
-#   base::stopifnot(unlist(args))
-# }
