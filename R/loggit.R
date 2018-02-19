@@ -26,11 +26,21 @@
 #'   print to the console as well.
 #'
 #' @examples
-#'  \donttest{loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-#'   sure = "why not?", like = 2, or = 10, what = "ever")}
+#'  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+#'  sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
 loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
+  
+  if (.config$templogfile && !.config$seenmessage) {
+    warning(paste0("loggit has no persistent log file. Please set with ",
+                   "setLogFile(logfile), or see package?loggit for more help. ",
+                   "Otherwise, you can recover your logs from THIS R SESSION ONLY ",
+                   "via copying ", .config$logfile, " to a persistent folder."))
+                   .config$seenmessage <- TRUE
+  } else {
+    .config$templogfile <- FALSE
+  }
   
   timestamp <- format(Sys.time(), format = .config$ts_format)
   

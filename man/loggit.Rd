@@ -39,7 +39,7 @@ While this function has an intended use of logging handler messages without
 any direct user interaction, it is flexible enough to be used as you see fit.
 }
 \examples{
- \donttest{loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-  sure = "why not?", like = 2, or = 10, what = "ever")}
+ loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+ sure = "why not?", like = 2, or = 10, what = "ever")
 
 }

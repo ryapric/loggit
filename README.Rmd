@@ -85,8 +85,11 @@ in the `loggit` package.
 ### How to Use
 
 Chances are that if you've read this far, you're familiar with R's exception
-handlers. If so, then the only other thing you need to know is that the log
-file is output to your current working directory, named `loggit.json`, and you
+handlers. If so, then there are only two other things that you need to know in order to use `loggit`:
+
+1. As per CRAN policies, you need to set the log file before any logs are written to disk, using `setLogFile(logfile)`. If you are using loggit in your own package, you can wrap this in a call to `.onLoad()`, so that logging is set on package load. If not, then make the set call as soon as possible; otherwise, no logs will be written!
+
+1. is that the log file is output to your current working directory, named `loggit.json`, and you
 can review it there:
 
 * `timestamp`: when the exception was raised

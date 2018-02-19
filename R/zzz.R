@@ -1,6 +1,8 @@
 .onLoad <- function(libname, pkgname) {
-  setTimestampFormat(confirm = FALSE)
   setLogFile(confirm = FALSE)
+  setTimestampFormat(confirm = FALSE)
+  .config$templogfile <- TRUE
+  .config$seenmessage <- FALSE
 }
 
 .onAttach <- function(libname, pkgname) {

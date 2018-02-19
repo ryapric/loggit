@@ -15,3 +15,7 @@ setTimestampFormat(ts_format = "\%Y-\%m-\%d \%H:\%M:\%S", confirm = TRUE)
 \description{
 Set timestamp format for use in output logs.
 }
+\examples{
+getTimestampFormat()
+
+}

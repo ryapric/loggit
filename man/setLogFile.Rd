@@ -4,7 +4,7 @@
 \alias{setLogFile}
 \title{Set Log File}
 \usage{
-setLogFile(logfile = paste0(getwd(), "/", "loggit.json"), confirm = TRUE)
+setLogFile(logfile = NULL, confirm = TRUE)
 }
 \arguments{
 \item{logfile}{Full path to log file. Until other output formats are
@@ -13,6 +13,14 @@ introduced, the file name must end in ".json".}
 \item{confirm}{Print confirmation of log file setting? Defaults to \code{TRUE}.}
 }
 \description{
-Set the log file that loggit will write to. Defaults to one called
-"loggit.json" in the working directory that exists on load.
+Set the log file that loggit will write to. No logs will be written until
+this is set, as per CRAN policy. The suggested use of this function would be
+to call it early, to log to the current working directory, as follows:
+\code{setLogFile(paste0(getwd(), "/loggit.json"))}. If you are using \code{loggit} in
+your package, you can wrap this function in \code{.onLoad()} so that the logfile
+is set when your package loads.
+}
+\examples{
+setLogFile(paste0(tempdir(), "/loggit.json"))
+
 }

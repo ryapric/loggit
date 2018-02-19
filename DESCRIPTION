@@ -1,10 +1,10 @@
 Package: loggit
-Title: Effortless Exception Logging in R
+Title: Effortless Exception Logging
 Description:
-    A very simple and easy-to-use set of suspiciously-familiar functions. loggit
+    A very simple and easy-to-use set of suspiciously-familiar functions. 'loggit'
     provides a set of wrappings for base R's message(), warning(), and stop()
     functions that maintain identical functionality, but also log the handler
-    message to a JSON log file. While mostly automatic, powerful custom logging
+    message to a 'JSON' log file. While mostly automatic, powerful custom logging
     is available via these handlers' logging function, loggit(), which is also
     exported for use. No change in existing code is necessary to use this
     package.
