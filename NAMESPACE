@@ -2,6 +2,7 @@
 
 export(getLogFile)
 export(getTimestampFormat)
+export(get_logs)
 export(loggit)
 export(message)
 export(setLogFile)

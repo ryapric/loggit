@@ -55,4 +55,21 @@ test_that("loggit writes to JSON file", {
 
 file.remove(.config$logfile)
 
+
+
+context("Log file can be returned")
+
+test_that("Log file is returned via get_logs()", {
+  message("Test log entry")
+  x <- get_logs()
+  expect_equal(class(x), "data.frame")
+  expect_equal(nrow(x), 2)
+  x <- get_logs(as_df = FALSE)
+  expect_equal(class(x), "list")
+  expect_false(class(x) == "data.frame")
+  expect_length(x, 2)
+})
+
+file.remove(.config$logfile)
+
 .config$seenmessage <- .config$seenmessage_old
