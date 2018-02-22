@@ -45,8 +45,7 @@ setLogFile <- function(logfile = NULL, confirm = TRUE) {
 #'
 #' @export
 getLogFile <- function() {
-  print(.config$logfile)
-  invisible()
+  .config$logfile
 }
 
 
@@ -76,6 +75,5 @@ setTimestampFormat <- function(ts_format = "%Y-%m-%d %H:%M:%S", confirm = TRUE) 
 #'
 #' @export
 getTimestampFormat <- function() {
-  print(.config$ts_format)
-  invisible()
+  .config$ts_format
 }
