@@ -11,7 +11,9 @@ knitr::wrap_rmd("README.Rmd")
 ```
 
 
+<!--
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/loggit)](https://cran.r-project.org/package=loggit)
+-->
 
 
 ---
