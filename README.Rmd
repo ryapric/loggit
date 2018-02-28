@@ -2,15 +2,19 @@
 title: "Effortless Exception Logging in R: loggit!"
 author: "Ryan Price <ryapric@gmail.com>"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
-output:
-  html_document:
-    keep_md: TRUE
+output: github_document
 ---
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::wrap_rmd("README.Rmd")
 ```
+
+
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/loggit)](https://cran.r-project.org/package=loggit)
+
+
+---
 
 This package is designed for anyone who has written their own package or
 analysis functions that already use basic exception handling by way of base R's
