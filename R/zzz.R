@@ -11,6 +11,6 @@
                          fields = "Version")
   msg <- paste("Package", pkgname, "version", pkgversion, "\n",
                "NOTE: - Output file is set to", .config$logfile,  "\n",
-               "      - See 'package?loggit' for help.")
+               "      - See 'help(package = \"loggit\")' for help.")
   packageStartupMessage(msg)
 }
