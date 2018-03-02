@@ -1,4 +1,6 @@
-# loggit version 1.0.1
+# loggit version 1.1.0
+
+- Add logrotate(), which is designed to emulate the 'logrotate' utility from UNIX-alike systems.
 
 - Add get_logs(), which returns a data frame of a provided log file. Returns the current log file by default.
 
