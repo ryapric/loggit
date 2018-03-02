@@ -21,6 +21,6 @@ your package, you can wrap this function in \code{.onLoad()} so that the logfile
 is set when your package loads.
 }
 \examples{
-setLogFile(paste0(tempdir(), "/loggit.json"))
+setLogFile(file.path(tempdir(), "loggit.json"))
 
 }

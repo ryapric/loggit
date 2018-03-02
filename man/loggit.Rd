@@ -37,11 +37,6 @@ well.
 \details{
 While this function has an intended use of logging handler messages without
 any direct user interaction, it is flexible enough to be used as you see fit.
-You may also provide a \code{data.frame} or \code{tbl_df} as the sole argument to this
-function, and have it all logged in one call. To do this, the provided data
-frame need to at least have the column names "log_lvl" and "log_msg", while
-others will be passed as additional fields, as usual. The timestamp will
-still be handled by \code{loggit()}'s call.
 }
 \examples{
  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
