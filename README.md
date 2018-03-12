@@ -1,9 +1,11 @@
 Effortless Exception Logging in R: loggit!
 ================
 Ryan Price <ryapric@gmail.com>
-2018-02-28
+2018-03-12
 
-<!-- [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/loggit)](https://cran.r-project.org/package=loggit) -->
+<!--
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-ago/loggit)](https://cran.r-project.org/package=loggit)
+-->
 
 ------------------------------------------------------------------------
 
@@ -75,8 +77,6 @@ Also note that *you **do not always** have to supply a custom field* once it is 
     1 2018-02-13 18:01:32    INFO Result 1          ""          Ryan
     2 2018-02-13 18:02:32    INFO Result 2          ""        Thomas
     3 2018-02-13 18:03:32    INFO Result 3          ""          <NA>
-
-As of v1.0.1, you can also supply a `data.frame` or `tbl_df` as the *sole* argument to `loggit()`, and the whole data frame will be logged. To do this, you must specify at least "log\_lvl" and "log\_msg" as column names in the data frame; you can then supply as many additional columns as you wish, just like is using `...`. Note that the timestamp is still handled by `loggit()`.
 
 <br>
 

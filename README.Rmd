@@ -158,12 +158,6 @@ created; thanks, JSON and `dplyr`!
     2 2018-02-13 18:02:32    INFO Result 2          ""        Thomas
     3 2018-02-13 18:03:32    INFO Result 3          ""          <NA>
 
-As of v1.0.1, you can also supply a `data.frame` or `tbl_df` as the *sole*
-argument to `loggit()`, and the whole data frame will be logged. To do this,
-you must specify at least "log_lvl" and "log_msg" as column names in the data
-frame; you can then supply as many additional columns as you wish, just like is
-using `...`. Note that the timestamp is still handled by `loggit()`.
-
 <br>
 
 Also, other control options:
