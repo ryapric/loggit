@@ -22,3 +22,9 @@ function will return a data frame of the log file currently pointed to by the
 loggit functions. Users can request that the logs be returned as a \code{list},
 though this is not recommended.
 }
+\examples{
+setLogFile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
+message("Test log message")
+get_logs(getLogFile())
+
+}

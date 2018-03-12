@@ -8,9 +8,10 @@ loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
-"WARN", and "ERROR" are common, but any string may be supplied.}
+"WARN", and "ERROR" are common, but any string may be supplied. Will be
+coerced to class \code{character}.}
 
-\item{log_msg}{Main log message.}
+\item{log_msg}{Main log message. Will be coerced to class \code{character}.}
 
 \item{log_detail}{Additional detail recorded along with a log message.}
 
@@ -37,11 +38,6 @@ well.
 \details{
 While this function has an intended use of logging handler messages without
 any direct user interaction, it is flexible enough to be used as you see fit.
-You may also provide a \code{data.frame} or \code{tbl_df} as the sole argument to this
-function, and have it all logged in one call. To do this, the provided data
-frame need to at least have the column names "log_lvl" and "log_msg", while
-others will be passed as additional fields, as usual. The timestamp will
-still be handled by \code{loggit()}'s call.
 }
 \examples{
  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
