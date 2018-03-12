@@ -1,6 +1,10 @@
-# loggit version 1.1.0
+# loggit version 1.1.1
 
-- Add logrotate(), which is designed to emulate the 'logrotate' utility from UNIX-alike systems.
+- Automatically coerce any entries for 'log_lvl' and 'log_msg' fields to be character.
+
+- loggit() no longer allows for a data frame to be passed as an argument; the underlying code was too hacky, and I got ahead of myself in throwing it in there. loggit() is, however, still vectorized by nature.
+
+# loggit version 1.1.0
 
 - Add get_logs(), which returns a data frame of a provided log file. Returns the current log file by default.
 
@@ -11,6 +15,6 @@ can be supplied.
 
 # loggit version 1.0.0
 
-This is the first CRAN release of the loggit package. Included features are the
+- This is the first CRAN release of the loggit package. Included features are the
 masking functions for base R's exception handlers (message, warning, and stop),
 as well as the loggit() function, which is wrapped in those calls.
