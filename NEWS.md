@@ -1,14 +1,14 @@
 # loggit version 1.1.1
 
-- Automatically coerce any entries for 'log_lvl' and 'log_msg' fields to be character.
+- Automatically coerce any entries for 'log_lvl' and 'log_msg' fields to be character,.
 
-- loggit() no longer allows for a data frame to be passed as an argument; the underlying code was too hacky, and I got ahead of myself in throwing it in there. loggit() is, however, still vectorized by nature.
+- (Github-only): loggit() no longer allows for a data frame to be passed as an argument; the underlying code was not writen very well, and I got ahead of myself in throwing it in there. loggit() is, however, still vectorized by nature, so users can still pass vectors to, for example, the log_detail argument, and values will be recycled according to R's usual recycling rules.
 
 # loggit version 1.1.0
 
 - Add get_logs(), which returns a data frame of a provided log file. Returns the current log file by default.
 
-- loggit() now allows for a data frame to be passed as the sole argument, and have
+- (Github-only): loggit() now allows for a data frame to be passed as the sole argument, and have
 its results be logged. Required column names are the same as the first two
 arguments to loggit(): "log_lvl" and "log_msg". Any additional number of columns
 can be supplied.

@@ -43,8 +43,6 @@ other packages like [log4r](http://cran.r-project.org/package=log4r),
 powerful logs in some cases, we wanted to make great logging "out of sight, out
 of mind"; at least until your boss asks for those ETL logs!
 
-<br>
-
 ### Features
 
 R has a selection of built-in functions for handling different *exceptions*, or
@@ -87,8 +85,6 @@ handle them just as easily! As such, JSON is the default log file output type
 in the `loggit` package. You can manipulate & review JSON objects in R by way
 of the [jsonlite](https://cran.r-project.org/package=jsonlite) package.
 
-<br>
-
 ### How to Use
 
 Chances are that if you've read this far, you're familiar with R's exception
@@ -115,9 +111,10 @@ default are:
 handlers, though not necessary to supply (will be filled with "" if not
 supplied).
 
-#### _**That's it!**_
+You can view the output logs by calling `get_logs()`, which returns (by
+default) the currently-set log file, as a data frame.
 
-<br>
+#### _**That's it!**_
 
 However, if you want more control, or care a bit more about the details:
 
@@ -158,8 +155,6 @@ created; thanks, JSON and `dplyr`!
     2 2018-02-13 18:02:32    INFO Result 2          ""        Thomas
     3 2018-02-13 18:03:32    INFO Result 3          ""          <NA>
 
-<br>
-
 Also, other control options:
 
 - You can control the output name & location of the log file using
@@ -176,8 +171,6 @@ Also, other control options:
     format `"%Y-%m-%d %H:%M:%S"`, but you may set it yourself using
     `setTimestampFormat()`. Note that this format is passed to `format.Date()`,
     so the supplied format needs to be valid.
-
-<br>
 
 ### Note on *What* Gets Logged
 
@@ -201,8 +194,6 @@ handlers won't be masked by `loggit`.
 
 If you really wish to have *all* exception messages logged by `loggit`, please
 be patient, as this feature is in the works.
-
-<br>
 
 ### Installation
 
@@ -230,8 +221,6 @@ Note that packages being submitted to CRAN *cannot* have a `Remotes` field.
 Refer
 [here](https://cran.r-project.org/web/packages/devtools/vignettes/dependencies.html)
 for more info.
-
-<br>
 
 ### License
 
