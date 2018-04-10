@@ -1,4 +1,4 @@
-#' Loggit's Exception Handlers
+#' loggit's Exception Handlers
 #'
 #' These exception handlers are identical to base R's [message][base::message],
 #' [warning][base::warning], and [stop][base::stop], but with included logging
