@@ -9,19 +9,28 @@ pipeline {
     stage('Install/Update Dependency Pkgs') {
       steps {
         sh '''
-        Rscript -e \'devtools::install_deps()\''''
+        Rscript -e \'devtools::install_deps()\'
+        '''
+      }
+    }
+    stage('Set environment variable(s)') {
+      steps {
+        sh '''
+        prevars="--no-site-file --no-environ --no-save --no-restore --quiet"
+        '''
       }
     }
     stage('R CMD build') {
       steps {
         sh '''
-        prevars="--no-site-file --no-environ --no-save --no-restore --quiet"
-        R $prevars CMD build . --no-resave-data --no-manual'''
+        R $prevars CMD build . --no-resave-data --no-manual
+        '''
       }
     }
     stage('R CMD check') {
       steps {
-        sh '''        R $prevars CMD check  *.tar.gz --as-cran --timings --no-manual
+        sh '''
+        R $prevars CMD check  *.tar.gz --as-cran --timings --no-manual
         '''
       }
     }
