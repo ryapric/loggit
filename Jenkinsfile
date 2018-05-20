@@ -3,18 +3,10 @@ pipeline {
   stages {
     stage('R CMD check') {
       steps {
-        sh '''
-
-
-
-
-
-
-
-
-prevars="--no-site-file --no-environ --no-save --no-restore"
-R CMD $prevars build . --no-resave-data --no-manual
-R CMD $prevars check *.tar.gz --as-cran --timings --no-manual
+        sh '''devtools::install_deps()
+prevars="--no-site-file --no-environ --no-save --no-restore --quiet"
+R $prevars CMD build . --no-resave-data --no-manual
+R $prevars CMD check  *.tar.gz --as-cran --timings --no-manual
 '''
       }
     }
