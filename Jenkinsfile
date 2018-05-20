@@ -3,7 +3,6 @@ pipeline {
     docker {
       image 'rocker/tidyverse:3.5.0'
     }
-
   }
   stages {
     stage('R CMD check') {

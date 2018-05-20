@@ -3,5 +3,6 @@
 ^.*\.log$
 ^.*\.json$
 ^.*\.txt$
-README
+README.*
 cran-comments.md
+Jenkinsfile

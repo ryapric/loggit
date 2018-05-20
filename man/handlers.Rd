@@ -5,7 +5,7 @@
 \alias{message}
 \alias{warning}
 \alias{stop}
-\title{Loggit's Exception Handlers}
+\title{loggit's Exception Handlers}
 \usage{
 message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
   log_detail = "", echo = FALSE)
