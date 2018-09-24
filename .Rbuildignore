@@ -6,3 +6,4 @@
 README.*
 cran-comments.md
 Jenkinsfile
+^\.travis\.yml
