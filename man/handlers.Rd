@@ -13,8 +13,8 @@ message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
 warning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
   domain = NULL, .loggit = TRUE, log_detail = "", echo = FALSE)
 
-stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, log_detail = "",
-  echo = FALSE)
+stop(..., call. = TRUE, domain = NULL, .loggit = TRUE,
+  log_detail = "", echo = FALSE)
 }
 \arguments{
 \item{...}{zero or more objects which can be coerced to character

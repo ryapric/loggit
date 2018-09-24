@@ -26,7 +26,7 @@ setLogFile <- function(logfile = NULL, confirm = TRUE) {
   } else {
     
     if (substr(logfile, nchar(logfile) - 4, nchar(logfile)) != ".json")
-      base::stop("Log file path must be explcitly JSON, i.e. end in '.json'")
+      base::stop("Log file path must be explicitly JSON, i.e. end in '.json'")
     .config$logfile <- logfile
     .config$templogfile <- FALSE
     if (confirm) print(paste0("Log file set to ", logfile))

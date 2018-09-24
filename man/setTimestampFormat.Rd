@@ -4,7 +4,8 @@
 \alias{setTimestampFormat}
 \title{Set Timestamp Format}
 \usage{
-setTimestampFormat(ts_format = "\%Y-\%m-\%d \%H:\%M:\%S", confirm = TRUE)
+setTimestampFormat(ts_format = "\%Y-\%m-\%d \%H:\%M:\%S",
+  confirm = TRUE)
 }
 \arguments{
 \item{ts_format}{ISO date format.}
