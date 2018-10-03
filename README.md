@@ -1,9 +1,9 @@
 Effortless Exception Logging in R: loggit!
 ================
 Ryan Price <ryapric@gmail.com>
-2018-09-24
+2018-10-03
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit) [![Build Status](https://travis-ci.org/ryapric/loggit.svg?branch=master)](https://travis-ci.org/ryapric/loggit)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit) [![Build Status](https://travis-ci.org/ryapric/loggit.svg?branch=master)](https://travis-ci.org/ryapric/loggit) [![Monthly downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org/package=loggit)
 
 ------------------------------------------------------------------------
 
