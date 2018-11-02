@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'rocker/tidyverse:3.5.0'
+      image 'rocker/tidyverse:3.5.1'
     }
 
   }
