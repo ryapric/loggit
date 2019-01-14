@@ -1,7 +1,7 @@
 *.log
 *.json
 *.txt
-*.swp
+*.tar.gz
 .Rproj.user
 __README.*
 README.html

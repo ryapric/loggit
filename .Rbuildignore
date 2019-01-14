@@ -6,4 +6,5 @@
 README.*
 cran-comments.md
 Jenkinsfile
+Makefile
 ^\.travis\.yml
