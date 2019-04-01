@@ -3,5 +3,7 @@
 *.txt
 *.tar.gz
 .Rproj.user
-__README.*
-README.html
+README.*
+!README.md
+!README.Rmd
+*.Rcheck
