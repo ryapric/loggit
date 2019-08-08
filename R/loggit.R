@@ -25,13 +25,18 @@
 #'   argument is passed as `FALSE` when called from `loggit`'s handlers, since
 #'   they still call base R's handlers at the end of execution, all of which
 #'   print to the console as well.
+#' @param custom_log_lvl Allow log levels other than "DEBUG", "INFO", "WARN",
+#'   and "ERROR"? Defaults to `FALSE`, to prevent possible typos by the
+#'   developer. Note that passing a custom level will only throw 'messages',
+#'   e.g. you will not be able to raise errors or warnings using custom log
+#'   levels.
 #'
 #' @examples
 #'  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
 #'  sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
-loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
+loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE, custom_log_lvl = FALSE) {
   
   if (.config$templogfile && !.config$seenmessage) {
     base::warning(paste0("loggit has no persistent log file. Please set with ",
@@ -44,13 +49,23 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
     .config$templogfile <- FALSE
   }
   
+  # Try to suggest limited log levels to prevent typos by users
+  log_lvls <- c("DEBUG", "INFO", "WARN", "ERROR")
+  if (!(log_lvl %in% log_lvls) && !custom_log_lvl) {
+    base::stop(paste0("Nonstandard log_lvl ('", log_lvl, "').\n",
+                      "Please check if you made a typo.\n",
+                      "If you insist on passing a custom level, please set 'custom_log_lvl = TRUE' in the call to 'loggit()'."
+    ))
+  }
+  
   timestamp <- format(Sys.time(), format = .config$ts_format)
   
   dots <- list(...)
   
   if (length(dots) > 0) {
-    if (any(unlist(lapply(dots, length)) > 1))
+    if (any(unlist(lapply(dots, length)) > 1)) {
       base::warning("Each custom log field should be of length one, or else your logs will be multiplied!")
+    }
     log_df <- data.frame(
       timestamp = timestamp,
       log_lvl = as.character(log_lvl),
@@ -68,26 +83,24 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
   }
   
   if (!file.exists(.config$logfile) || length(readLines(.config$logfile)) == 0) {
-    logs_json <- dplyr::bind_rows(
+    logs_json <- bind_rows_loggit(
       data.frame(timestamp = timestamp,
                  log_lvl = "INFO",
                  log_msg = "Initial log",
                  log_detail = "",
                  stringsAsFactors = FALSE),
       log_df)
-    jsonlite::write_json(logs_json, path = .config$logfile, pretty = TRUE)
   } else {
     logs_json <- jsonlite::read_json(.config$logfile, simplifyVector = TRUE)
-    logs_json <- dplyr::bind_rows(logs_json, log_df)
-    jsonlite::write_json(logs_json, path = .config$logfile, pretty = TRUE)
+    logs_json <- bind_rows_loggit(logs_json, log_df)
   }
+  
+  jsonlite::write_json(logs_json, path = .config$logfile, pretty = FALSE)
   
   if (echo) base::message(paste(c(log_lvl, log_msg), collapse = ": "))
   
   invisible()
-  
 }
-
 
 
 #' Return Log File as an R Object

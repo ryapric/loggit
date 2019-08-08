@@ -4,7 +4,8 @@
 \alias{loggit}
 \title{Log Message to Output File}
 \usage{
-loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE)
+loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE,
+  custom_log_lvl = FALSE)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
@@ -25,6 +26,10 @@ the coercion.}
 argument is passed as \code{FALSE} when called from \code{loggit}'s handlers, since
 they still call base R's handlers at the end of execution, all of which
 print to the console as well.}
+
+\item{custom_log_lvl}{Allow log levels other than "DEBUG", "INFO", "WARN",
+and "ERROR"? Defaults to \code{FALSE}, to prevent possible typos by the
+developer.}
 }
 \description{
 This function executes immediately before the function definitions for the

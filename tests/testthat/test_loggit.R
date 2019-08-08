@@ -1,39 +1,6 @@
-# Prevent warning from being raised by testthat's loggit() call
-.config$seenmessage_old <- .config$seenmessage
-.config$seenmessage <- TRUE
-
-
-
-context("Handler replacements")
-
-test_that("message works as it does in base R", {
-  expect_message(base::message("this is a message test"))
-  expect_message(loggit::message("this is also a message test"))
-})
-
-test_that("warning works as it does in base R", {
-  expect_warning(base::warning("this is a warning test"))
-  expect_warning(loggit::warning("this is also a warning test"))
-})
-
-test_that("stop works as it does in base R", {
-  expect_error(base::stop("this is a stop test"))
-  expect_error(loggit::stop("this is also a stop test"))
-})
-
-test_that("stopifnot works as it does in base R", {
-  expect_error(base::stopifnot(is.numeric("this is a stopifnot test")))
-  expect_error(loggit::stopifnot(is.numeric("this is also a stopifnot test")))
-})
-
-file.remove(.config$logfile)
-
-
-
-context("File output")
+context("loggit")
 
 test_that("loggit writes to JSON file", {
-  
   init_msg <- "Initial log"
   msg <- "this is a message"
   warn <- "this is a warning"
@@ -50,11 +17,17 @@ test_that("loggit writes to JSON file", {
   expect_equal(logs_json$log_lvl, c("INFO", "INFO", "WARN", "ERROR"))
   expect_equal(logs_json$log_msg, c(init_msg, msg, warn, err))
   expect_equal(logs_json$log_detail[4], detail)
-  
 })
 
 file.remove(.config$logfile)
 
+
+test_that("loggit custom levels behave as expected", {
+  expect_error(loggit(log_lvl = "foo", log_msg = "bar"))
+  expect_message(loggit(log_lvl = "foo", log_msg = "bar", custom_log_lvl = TRUE))
+})
+
+file.remove(.config$logfile)
 
 
 context("Log file can be returned")
@@ -62,14 +35,12 @@ context("Log file can be returned")
 test_that("Log file is returned via get_logs()", {
   message("Test log entry")
   x <- get_logs()
-  expect_equal(class(x), "data.frame")
+  expect_true("data.frame" %in% class(x))
   expect_equal(nrow(x), 2)
   x <- get_logs(as_df = FALSE)
   expect_equal(class(x), "list")
-  expect_false(class(x) == "data.frame")
+  expect_false("data.frame" %in% class(x))
   expect_length(x, 2)
 })
 
 file.remove(.config$logfile)
-
-.config$seenmessage <- .config$seenmessage_old
