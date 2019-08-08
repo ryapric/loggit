@@ -14,7 +14,6 @@
 NULL
 
 
-
 #' @rdname handlers
 #' 
 #' @inheritParams base::message
@@ -29,7 +28,6 @@ message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
                      echo = echo)
   base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
-
 
 
 #' @rdname handlers
@@ -48,7 +46,6 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
   base::warning(unlist(args), call. = call., immediate. = immediate.,
                 noBreaks. = noBreaks., domain = domain)
 }
-
 
 
 #' @rdname handlers

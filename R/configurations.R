@@ -2,7 +2,6 @@
 .config <- new.env(parent = emptyenv())
 
 
-
 #' Set Log File
 #'
 #' Set the log file that loggit will write to. No logs will be written until
@@ -34,7 +33,6 @@ setLogFile <- function(logfile = NULL, confirm = TRUE) {
   }
   
   invisible()
-  
 }
 
 #' Get Log File
