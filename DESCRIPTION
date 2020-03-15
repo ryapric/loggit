@@ -14,8 +14,6 @@ Authors@R:
   c(person("Ryan", "Price", email = "ryapric@gmail.com", role = c("cre", "aut")))
 License: MIT + file LICENSE
 Depends: R (>= 3.4.0)
-Imports:
-  jsonlite (>= 1.5)
 Suggests:
   knitr (>= 1.19),
   rmarkdown (>= 1.8),
@@ -25,3 +23,4 @@ BugReports: https://github.com/ryapric/loggit/issues
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

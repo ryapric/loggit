@@ -29,7 +29,9 @@ print to the console as well.}
 
 \item{custom_log_lvl}{Allow log levels other than "DEBUG", "INFO", "WARN",
 and "ERROR"? Defaults to \code{FALSE}, to prevent possible typos by the
-developer.}
+developer. Note that passing a custom level will only throw 'messages',
+e.g. you will not be able to raise errors or warnings using custom log
+levels.}
 }
 \description{
 This function executes immediately before the function definitions for the

@@ -1,3 +1,10 @@
+# Each test context needs to wipe the log file etc., so define a cleanup()
+# function here
+cleanup <- function() {
+  file.remove(.config$logfile)
+}
+
+# ===
 context("loggit")
 
 test_that("loggit writes to JSON file", {
@@ -19,18 +26,18 @@ test_that("loggit writes to JSON file", {
   expect_equal(logs_json$log_detail[4], detail)
 })
 
-file.remove(.config$logfile)
+cleanup()
 
-
+# ===
 test_that("loggit custom levels behave as expected", {
   expect_error(loggit(log_lvl = "foo", log_msg = "bar"))
   expect_message(loggit(log_lvl = "foo", log_msg = "bar", custom_log_lvl = TRUE))
 })
 
-file.remove(.config$logfile)
+cleanup()
 
-
-context("Log file can be returned")
+# ===
+context("Log file can be returned as data.frame")
 
 test_that("Log file is returned via get_logs()", {
   message("Test log entry")
@@ -43,4 +50,12 @@ test_that("Log file is returned via get_logs()", {
   expect_length(x, 2)
 })
 
-file.remove(.config$logfile)
+cleanup()
+
+# ===
+context("Log file is ndjson")
+
+test_that("Log file is ndjson", {
+  message("Test log entry", ndjson = TRUE)
+  x <- readLines(loggit::get_logfile())
+})

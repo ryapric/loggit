@@ -1,7 +1,7 @@
 # Development version
 
-- Remove `dplyr` as a dependency. This makes the only imported package
-  `jsonlite`.
+- Remove `dplyr` and `jsonlite` as dependencies. This makes `loggit` entirely
+  free from dependencies.
 
 - Logs are no longer written out "pretty". This should make the log files
   smaller.

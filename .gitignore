@@ -7,3 +7,4 @@ README.*
 !README.md
 !README.Rmd
 *.Rcheck
+inst/doc
