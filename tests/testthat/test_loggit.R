@@ -1,66 +1,51 @@
-# Each test context needs to wipe the log file etc., so define a cleanup()
-# function here
-cleanup <- function() {
-  file.remove(.config$logfile)
-}
-
-# Prevent warning from being raised by testthat's loggit() call
-.config$seenmessage_old <- .config$seenmessage
-.config$seenmessage <- TRUE
-agree_to_upcoming_loggit_updates()
-
 # ===
-context("loggit")
+context("loggit handlers")
 
-test_that("loggit writes to JSON file", {
-  init_msg <- "Initial log"
+test_that("loggit writes handler messages to file", {
   msg <- "this is a message"
   warn <- "this is a warning"
   err <- "this is an error"
-  detail <- "and this is error detail"
   
-  expect_message(message(msg))
-  expect_warning(warning(warn))
-  expect_error(stop(err, log_detail = detail))
+  expect_message(message(msg, echo = FALSE))
+  expect_warning(warning(warn, echo = FALSE))
+  expect_error(stop(err, echo = FALSE))
   
-  logs_json <- jsonlite::read_json(file.path(.config$logfile), simplifyVector = TRUE)
+  logs_json <- read_logs()
   
-  expect_equal(nrow(logs_json), 4)
-  expect_equal(logs_json$log_lvl, c("INFO", "INFO", "WARN", "ERROR"))
-  expect_equal(logs_json$log_msg, c(init_msg, msg, warn, err))
-  expect_equal(logs_json$log_detail[4], detail)
+  expect_equal(nrow(logs_json), 3)
+  expect_equal(logs_json$log_lvl, c("INFO", "WARN", "ERROR"))
+  expect_equal(logs_json$log_msg, c(msg, warn, err))
 })
 
 cleanup()
+
 
 # ===
+context("Custom log levels")
+
 test_that("loggit custom levels behave as expected", {
-  expect_error(loggit(log_lvl = "foo", log_msg = "bar"))
-  expect_message(loggit(log_lvl = "foo", log_msg = "bar", custom_log_lvl = TRUE))
+  expect_error(loggit(log_lvl = "foo", log_msg = "bar", echo = FALSE))
+  expect_message(loggit(log_lvl = "foo", log_msg = "bar", echo = FALSE, custom_log_lvl = TRUE))
 })
 
 cleanup()
+
 
 # ===
 context("Log file can be returned as data.frame")
 
 test_that("Log file is returned via get_logs()", {
-  message("Test log entry")
-  x <- get_logs()
-  expect_true("data.frame" %in% class(x))
-  expect_equal(nrow(x), 2)
-  x <- get_logs(as_df = FALSE)
-  expect_equal(class(x), "list")
-  expect_false("data.frame" %in% class(x))
-  expect_length(x, 2)
+  fail()
 })
 
 cleanup()
+
 
 # ===
 context("Log file is ndjson")
 
 test_that("Log file is ndjson", {
-  message("Test log entry", ndjson = TRUE)
-  x <- readLines(loggit::get_logfile())
+  fail()
 })
+
+cleanup()

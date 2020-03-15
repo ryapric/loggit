@@ -1,6 +1,6 @@
-Effortless Exception Logging in R: loggit!
-================
-Ryan Price <ryapric@gmail.com> 2018-10-03
+Effortless Exception and Data Validaiton Logging in R: loggit!
+==============================================================
+Ryan Price <ryapric@gmail.com>
 
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit)
 [![Build
@@ -10,10 +10,18 @@ downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org
 
 ------------------------------------------------------------------------
 
-***WARNING: loggit will receive large, backwards-incompatible changes with the
-v2.0 release. The package has been updated to include an error message that must
-be explicitly suppressed in order to function. Please check back often until the
-new release for more information, and feel free to reach out!***
+`loggit` is an [`ndJSON`](https://github.com/ndjson/ndjson-spec) logging library
+for R software. It is blazingly fast to write logs, and has _zero_ external
+dependencies.
+
+Why use loggit?
+---------------
+
+There are several logging packages available for R. `loggit` takes a more
+machine-parsable approach to logging, as well as adding low-verbosity
+flexibility to _what_ you can log:
+
+
 
 This package is designed for anyone who has written their own package or
 analysis functions that already use basic exception handling by way of base R's

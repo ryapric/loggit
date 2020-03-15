@@ -70,13 +70,13 @@ These exception handlers are identical to base R's \link[base:message]{message},
 of the exception messages.
 }
 \examples{
-agree_to_upcoming_loggit_updates()
-if (2 < 1) message("Don't say such silly things!")
+  agree_to_upcoming_loggit_updates()
+  if (2 < 1) message("Don't say such silly things!")
 
-agree_to_upcoming_loggit_updates()
-if (2 < 1) warning("You may want to review that math, and so this is your warning")
+  agree_to_upcoming_loggit_updates()
+  if (2 < 1) warning("You may want to review that math, and so this is your warning")
 
-agree_to_upcoming_loggit_updates()
-if (2 < 1) stop("This is a completely false condition, which throws an error")
+  agree_to_upcoming_loggit_updates()
+  if (2 < 1) stop("This is a completely false condition, which throws an error")
 
 }

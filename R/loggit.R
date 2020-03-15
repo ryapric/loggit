@@ -1,4 +1,4 @@
-#' Log Message to Output File
+#' Log ndjson to file
 #'
 #' This function executes immediately before the function definitions for the
 #' base handler functions ([message][base::message], [warning][base::warning],
@@ -32,35 +32,11 @@
 #'   levels.
 #'
 #' @examples
-#' agree_to_upcoming_loggit_updates()
-#' loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-#' sure = "why not?", like = 2, or = 10, what = "ever")
+#'   loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+#'   sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
-loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE, custom_log_lvl = FALSE) {
-  
-  if (!.config$agreed_to_upcoming_loggit_updates) {
-    base::stop(paste0("ERROR: loggit will soon be receiving major updates to how it works in v2.0! ",
-                      "Logs will instead be written to `ndjson`, or newline-delimited JSON files, ",
-                      "as well as changes to names of helper functions, like getLogFile() etc. ",
-                      "This is expected by end of April, 2020. Please plan for these changes accordingly, ",
-                      "and follow the package GitHub page for updates!\n",
-                      "If you wish to suppress this error and resume logging with the current version, ",
-                      "please run `agree_to_upcoming_loggit_updates()` in your script(s) or package(s).\n",
-                      "Aborting."))
-  }
-  
-  if (.config$templogfile && !.config$seenmessage) {
-    base::warning(paste0("loggit has no persistent log file. Please set with ",
-                         "set_logfile(logfile), or see package?loggit for more help.\n ",
-                         "Otherwise, you can recover your logs (from THIS R SESSION ONLY) ",
-                         "via copying ", .config$logfile, " to a persistent folder."))
-    if (log_detail == "") log_detail <- "User was warned about non-persistent log file."
-    .config$seenmessage <- TRUE
-  } else {
-    .config$templogfile <- FALSE
-  }
-  
+loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
   # Try to suggest limited log levels to prevent typos by users
   log_lvls <- c("DEBUG", "INFO", "WARN", "ERROR")
   if (!(log_lvl %in% log_lvls) && !custom_log_lvl) {
@@ -82,7 +58,6 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE, custom_l
       timestamp = timestamp,
       log_lvl = as.character(log_lvl),
       log_msg = as.character(log_msg),
-      log_detail = log_detail,
       dots,
       stringsAsFactors = FALSE)
   } else {
@@ -90,49 +65,31 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE, custom_l
       timestamp = timestamp,
       log_lvl = as.character(log_lvl),
       log_msg = as.character(log_msg),
-      log_detail = log_detail,
       stringsAsFactors = FALSE)
   }
   
-  if (!file.exists(.config$logfile) || length(readLines(.config$logfile)) == 0) {
-    logs_json <- bind_rows_loggit(
-      data.frame(timestamp = timestamp,
-                 log_lvl = "INFO",
-                 log_msg = "Initial log",
-                 log_detail = "",
-                 stringsAsFactors = FALSE),
-      log_df)
-  } else {
-    logs_json <- jsonlite::read_json(.config$logfile, simplifyVector = TRUE)
-    logs_json <- bind_rows_loggit(logs_json, log_df)
-  }
-  
-  jsonlite::write_json(logs_json, path = .config$logfile, pretty = FALSE)
-  
-  if (echo) base::message(paste(c(log_lvl, log_msg), collapse = ": "))
-  
-  invisible()
+  write_ndjson(log_df, echo = echo)
 }
 
 
-#' Return Log File as an R Object
+#' Return log file as an R data frame
 #'
-#' This function returns a `data.frame` (by default) containing all the logs in
-#' the provided ndJSON log file. If no explicit log file is provided, calling
-#' this function will return a data frame of the log file currently pointed to
-#' by the loggit functions.
+#' This function returns a `data.frame` containing all the logs in the provided
+#' ndJSON log file. If no explicit log file is provided, calling this function
+#' will return a data frame of the log file currently pointed to by the `loggit`
+#' functions.
 #'
-#' @param logfile ndJSON-format log file to return.
+#' @param logfile Path to log file. Will default to currently-set logfile.
 #'
 #' @return A `data.frame`.
 #'
 #' @examples
-#' set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
-#' message("Test log message")
-#' read_logs(getLogFile())
+#'   set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
+#'   message("Test log message")
+#'   read_logs(get_logfile())
 #'
 #' @export
-read_logs <- function(logfile, as_df = TRUE) {
+read_logs <- function(logfile) {
   if (missing(logfile)) logfile <- .config$logfile
   if (!file.exists(logfile)) {
     base::stop("Log file does not exist")

@@ -3,6 +3,10 @@
 - Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
   free from external dependencies.
 
+- Removed `log_detail` as an explicit argument to `loggit()`. This is a
+  non-breaking change, since `loggit()` will still pick up and log that field if
+  provided, but it is no longer a formal argument.
+
 - `loggit()` no longer complains that a persistent log file is not set, and
   instead relies on the user to take note of the logfile's location in the
   assigned tempdir.

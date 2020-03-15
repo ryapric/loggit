@@ -18,3 +18,6 @@ bind_rows_loggit <- function(df1, df2) {
   
   rbind(df1, df2)
 }
+
+
+log_rotate <- function() {}

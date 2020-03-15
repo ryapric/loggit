@@ -4,8 +4,14 @@
 \alias{loggit}
 \title{Log Message to Output File}
 \usage{
-loggit(log_lvl, log_msg, log_detail = "", ..., echo = TRUE,
-  custom_log_lvl = FALSE)
+loggit(
+  log_lvl,
+  log_msg,
+  log_detail = "",
+  ...,
+  echo = TRUE,
+  custom_log_lvl = FALSE
+)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "INFO",
@@ -47,8 +53,8 @@ While this function has an intended use of logging handler messages without
 any direct user interaction, it is flexible enough to be used as you see fit.
 }
 \examples{
-agree_to_upcoming_loggit_updates()
-loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-sure = "why not?", like = 2, or = 10, what = "ever")
+  agree_to_upcoming_loggit_updates()
+  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+  sure = "why not?", like = 2, or = 10, what = "ever")
 
 }
