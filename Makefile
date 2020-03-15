@@ -20,7 +20,7 @@ check-docker:
 	@docker run -it loggit:$(RVERSION)
 
 clean-docker:
-	@docker images | awk -F'\\s\\s+' '/loggit/ { print $$1 ":" $$2 } | xargs -I{} docker rmi {}
+	@docker images | awk -F'\\s\\s+' '/loggit/ { print $$1 ":" $$2 }' | xargs -I{} docker rmi {}
 
 install_deps:
 	Rscript \
