@@ -5,6 +5,7 @@
 ^.*\.txt$
 README.*
 cran-comments.md
+Dockerfile
 Jenkinsfile
 Makefile
 ^\.travis\.yml
