@@ -1,10 +1,19 @@
 # Development version
 
-- Remove `dplyr` and `jsonlite` as dependencies. This makes `loggit` entirely
-  free from dependencies.
+- Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
+  free from external dependencies.
 
-- Logs are no longer written out "pretty". This should make the log files
-  smaller.
+- `loggit()` no longer complains that a persistent log file is not set, and
+  instead relies on the user to take note of the logfile's location in the
+  assigned tempdir.
+
+- Configuration functions are all now in snake-case, e.g.
+  `set_timestamp_format()` instead of `setTimestampFormat()`.
+
+- `set_timestamp_format()` now defaults to ISO-8601 time format. The function
+  itself still provides no means to set a timezone, and this is deliberate. This
+  ensures that all software on the host reports identical timezone data by
+  default.
 
 # loggit 1.2.0
 
@@ -15,7 +24,7 @@
 # loggit version 1.1.1
 
 - Automatically coerce any entries for 'log_lvl' and 'log_msg' fields to be
-  character,.
+  character.
 
 - (Github-only): loggit() no longer allows for a data frame to be passed as an
   argument; the underlying code was not writen very well, and I got ahead of
