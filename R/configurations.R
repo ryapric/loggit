@@ -1,6 +1,17 @@
 # Configuration Environment, to be used as needed.
 .config <- new.env(parent = emptyenv())
 
+# REMOVE ONCE UPDATE GOES THROUGH
+.config$agreed_to_upcoming_loggit_updates <- FALSE
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
+agree_to_upcoming_loggit_updates <- function() {
+  .config$agreed_to_upcoming_loggit_updates <- TRUE
+}
 
 
 #' Set Log File
