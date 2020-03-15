@@ -27,8 +27,9 @@
 #'   print to the console as well.
 #'
 #' @examples
-#'  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-#'  sure = "why not?", like = 2, or = 10, what = "ever")
+#' agree_to_upcoming_loggit_updates()
+#' loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+#' sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
 loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
@@ -116,6 +117,7 @@ loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE) {
 #' @return A `data.frame`.
 #' 
 #' @examples
+#' agree_to_upcoming_loggit_updates()
 #' setLogFile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
 #' message("Test log message")
 #' get_logs(getLogFile())

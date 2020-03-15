@@ -3,12 +3,14 @@
 
 # REMOVE ONCE UPDATE GOES THROUGH
 .config$agreed_to_upcoming_loggit_updates <- FALSE
-#' Title
+#' Agree to upcoming loggit changes
 #'
-#' @return
+#' This function takes no arguments, but must be run before calling `loggit()`
+#' in a session. Due to the large, breaking changes coming in loggit v2.0, users
+#' are required to acknowledge that they have seen the error message before
+#' continuing to use this package's logging facilities.
+#'
 #' @export
-#'
-#' @examples
 agree_to_upcoming_loggit_updates <- function() {
   .config$agreed_to_upcoming_loggit_updates <- TRUE
 }

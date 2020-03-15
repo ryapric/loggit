@@ -7,22 +7,42 @@
 \alias{stop}
 \title{loggit's Exception Handlers}
 \usage{
-message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE,
-  log_detail = "", echo = FALSE)
+message(
+  ...,
+  domain = NULL,
+  appendLF = TRUE,
+  .loggit = TRUE,
+  log_detail = "",
+  echo = FALSE
+)
 
-warning(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
-  domain = NULL, .loggit = TRUE, log_detail = "", echo = FALSE)
+warning(
+  ...,
+  call. = TRUE,
+  immediate. = FALSE,
+  noBreaks. = FALSE,
+  domain = NULL,
+  .loggit = TRUE,
+  log_detail = "",
+  echo = FALSE
+)
 
-stop(..., call. = TRUE, domain = NULL, .loggit = TRUE,
-  log_detail = "", echo = FALSE)
+stop(
+  ...,
+  call. = TRUE,
+  domain = NULL,
+  .loggit = TRUE,
+  log_detail = "",
+  echo = FALSE
+)
 }
 \arguments{
 \item{...}{zero or more objects which can be coerced to character
     (and which are pasted together with no separator) or (for
     \code{message} only) a single condition object.}
 
-\item{domain}{see \code{\link{gettext}}.  If \code{NA}, messages will
-    not be translated, see also the note in \code{\link{stop}}.}
+\item{domain}{see \code{\link[base]{gettext}}.  If \code{NA}, messages will
+    not be translated, see also the note in \code{\link[base]{stop}}.}
 
 \item{appendLF}{logical: should messages given as a character string
     have a newline appended?}
@@ -39,7 +59,7 @@ to \code{FALSE}.}
     warning message.}
 
 \item{immediate.}{logical, indicating if the call should be output
-    immediately, even if \code{\link{getOption}("warn") <= 0}.}
+    immediately, even if \code{\link[base]{getOption}("warn") <= 0}.}
 
 \item{noBreaks.}{logical, indicating as far as possible the message should
     be output as a single line when \code{options(warn = 1)}.}
@@ -50,10 +70,13 @@ These exception handlers are identical to base R's \link[base:message]{message},
 of the exception messages.
 }
 \examples{
+agree_to_upcoming_loggit_updates()
 if (2 < 1) message("Don't say such silly things!")
 
+agree_to_upcoming_loggit_updates()
 if (2 < 1) warning("You may want to review that math, and so this is your warning")
 
+agree_to_upcoming_loggit_updates()
 if (2 < 1) stop("This is a completely false condition, which throws an error")
 
 }
