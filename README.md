@@ -10,6 +10,11 @@ downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org
 
 ------------------------------------------------------------------------
 
+***WARNING: loggit will receive large, backwards-incompatible changes with the
+v2.0 release. The package has been updated to include an error message that must
+be explicitly suppressed in order to function. Please check back often until the
+new release for more information, and feel free to reach out!***
+
 This package is designed for anyone who has written their own package or
 analysis functions that already use basic exception handling by way of base R's
 `message()`, `warning()`, and `stop()`. The loggit package *masks* base R's

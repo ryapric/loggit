@@ -32,11 +32,23 @@
 #'   levels.
 #'
 #' @examples
-#'  loggit("INFO", "This is a message", but_maybe = "you want more fields?",
-#'  sure = "why not?", like = 2, or = 10, what = "ever")
+#' agree_to_upcoming_loggit_updates()
+#' loggit("INFO", "This is a message", but_maybe = "you want more fields?",
+#' sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
 loggit <- function(log_lvl, log_msg, log_detail = "", ..., echo = TRUE, custom_log_lvl = FALSE) {
+  
+  if (!.config$agreed_to_upcoming_loggit_updates) {
+    base::stop(paste0("ERROR: loggit will soon be receiving major updates to how it works in v2.0! ",
+                      "Logs will instead be written to `ndjson`, or newline-delimited JSON files, ",
+                      "as well as changes to names of helper functions, like getLogFile() etc. ",
+                      "This is expected by end of April, 2020. Please plan for these changes accordingly, ",
+                      "and follow the package GitHub page for updates!\n",
+                      "If you wish to suppress this error and resume logging with the current version, ",
+                      "please run `agree_to_upcoming_loggit_updates()` in your script(s) or package(s).\n",
+                      "Aborting."))
+  }
   
   if (.config$templogfile && !.config$seenmessage) {
     base::warning(paste0("loggit has no persistent log file. Please set with ",

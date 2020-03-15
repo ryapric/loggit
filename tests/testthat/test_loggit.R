@@ -4,6 +4,11 @@ cleanup <- function() {
   file.remove(.config$logfile)
 }
 
+# Prevent warning from being raised by testthat's loggit() call
+.config$seenmessage_old <- .config$seenmessage
+.config$seenmessage <- TRUE
+agree_to_upcoming_loggit_updates()
+
 # ===
 context("loggit")
 

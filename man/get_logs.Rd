@@ -23,6 +23,7 @@ loggit functions. Users can request that the logs be returned as a \code{list},
 though this is not recommended.
 }
 \examples{
+agree_to_upcoming_loggit_updates()
 setLogFile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
 message("Test log message")
 get_logs(getLogFile())

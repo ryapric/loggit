@@ -6,6 +6,12 @@
 - Logs are no longer written out "pretty". This should make the log files
   smaller.
 
+# loggit 1.2.0
+
+- Add error on calls to loggit(), indicating breaking changes upcoming in v2.0.
+  Users can suppress the error by running agree_to_upcoming_loggit_updates()
+  once anywhere in their script or package before making a call to loggit().
+
 # loggit version 1.1.1
 
 - Automatically coerce any entries for 'log_lvl' and 'log_msg' fields to be

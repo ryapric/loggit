@@ -1,6 +1,7 @@
 ## Test environments
-* Local Windows 10 install, R 3.4.3
-* Local Lubuntu 16.04.4, R 3.4.3
+* Local Manjaro Linux install, R 3.6.3
+* Debian Stretch, R 3.6.2
+* CRAN win-builder-release, R 3.6.3
 
 ## R CMD check results
 There were no ERRORs, WARNINGs, or NOTEs.
