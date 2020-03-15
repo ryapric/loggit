@@ -14,6 +14,14 @@ build:
 check: build
 	R CMD check --no-manual $(PKGNAME)_$(PKGVERS).tar.gz
 
+check-docker:
+	@sed 's/RVERSION/$(RVERSION)/' Dockerfile-test > Dockerfile
+	@docker build -t loggit:$(RVERSION) .
+	@docker run -it loggit:$(RVERSION)
+
+clean-docker:
+	@docker images | awk -F'\\s\\s+' '/loggit/ { print $$1 ":" $$2 } | xargs -I{} docker rmi {}
+
 install_deps:
 	Rscript \
 	-e 'if (!requireNamespace("remotes")) install.packages("remotes")' \

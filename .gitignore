@@ -8,3 +8,4 @@ README.*
 !README.Rmd
 *.Rcheck
 inst/doc
+Dockerfile
