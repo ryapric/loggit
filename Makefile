@@ -17,7 +17,7 @@ check: build
 check-docker:
 	@sed 's/RVERSION/$(RVERSION)/' Dockerfile-test > Dockerfile
 	@docker build -t loggit:$(RVERSION) .
-	@docker run -it loggit:$(RVERSION)
+	@docker run --rm -it loggit:$(RVERSION)
 
 clean-docker:
 	@docker images | awk -F'\\s\\s+' '/loggit/ { print $$1 ":" $$2 }' | xargs -I{} docker rmi {}
