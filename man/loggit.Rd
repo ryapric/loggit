@@ -2,58 +2,43 @@
 % Please edit documentation in R/loggit.R
 \name{loggit}
 \alias{loggit}
-\title{Log Message to Output File}
+\title{Log entries to file}
 \usage{
-loggit(
-  log_lvl,
-  log_msg,
-  log_detail = "",
-  ...,
-  echo = TRUE,
-  custom_log_lvl = FALSE
-)
+loggit(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE)
 }
 \arguments{
-\item{log_lvl}{Level of log output. In actual practice, one of "INFO",
-"WARN", and "ERROR" are common, but any string may be supplied. Will be
-coerced to class \code{character}.}
+\item{log_lvl}{Level of log output. In actual practice, one of "DEBUG",
+"INFO", "WARN", and "ERROR" are common, but any string may be supplied if
+\code{custom_log_lvl} is TRUE. Will be coerced to class \code{character}.}
 
 \item{log_msg}{Main log message. Will be coerced to class \code{character}.}
-
-\item{log_detail}{Additional detail recorded along with a log message.}
 
 \item{...}{A named \code{list} or named \code{vector} (each element of length one) of
 other custom fields you wish to log. You do not need to explicitly provide
 these fields as a formal list or vector, as shown in the example; R handles
 the coercion.}
 
-\item{echo}{Should a message be printed to the console as well? Defaults to
-\code{TRUE}, and is truncated to just the level & message of the log. This
+\item{echo}{Should the log file entry be printed to the console as well?
+Defaults to \code{TRUE}, and will print out the \code{ndjson} line to be logged. This
 argument is passed as \code{FALSE} when called from \code{loggit}'s handlers, since
 they still call base R's handlers at the end of execution, all of which
 print to the console as well.}
 
 \item{custom_log_lvl}{Allow log levels other than "DEBUG", "INFO", "WARN",
 and "ERROR"? Defaults to \code{FALSE}, to prevent possible typos by the
-developer. Note that passing a custom level will only throw 'messages',
-e.g. you will not be able to raise errors or warnings using custom log
-levels.}
+developer, and to limit the variation in structured log contents. Overall,
+setting this to `TRUE`` is not recommended, but is an option for
+consistency with other frameworks the user may work with.}
 }
 \description{
 This function executes immediately before the function definitions for the
 base handler functions (\link[base:message]{message}, \link[base:warning]{warning},
 and \link[base:stop]{stop}, and logs their timestamped output (a bit more
-verbosely) to a log file. The log file defaults to a
-\href{https://www.json.org/}{JSON} file, which is a portable file format that is
-easily parsed by many systems, but will eventually have a \code{.txt} option as
-well.
-}
-\details{
-While this function has an intended use of logging handler messages without
-any direct user interaction, it is flexible enough to be used as you see fit.
+verbosely) to a log file. The log file is an
+\href{https://www.ndjson.org/}{ndjson} file, which is a portable, JSON-based
+format that is easily parsed by many line-processing systems.
 }
 \examples{
-  agree_to_upcoming_loggit_updates()
   loggit("INFO", "This is a message", but_maybe = "you want more fields?",
   sure = "why not?", like = 2, or = 10, what = "ever")
 

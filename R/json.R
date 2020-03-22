@@ -42,7 +42,35 @@ write_ndjson <- function(log_df, echo = TRUE) {
 #'
 # @examples
 read_ndjson <- function(logfile) {
-  logtxt <- readLines(logfile)
-  logdata <- logtxt
-  logdata
+  logdata <- readLines(logfile)
+  
+  # List first; easier to add to dynamically
+  log_df <- list()
+  
+  # Split out the log data into individual pieces, which will include JSON keys
+  # AND values
+  log_kvs <- strsplit(logdata, '\\{|"|,|: |\\}')
+  
+  rowcount <- length(log_kvs)
+  for (lognum in 1:rowcount) {
+    rowdata <- log_kvs[[lognum]]
+    # Filter out emtpy values from strsplit()
+    rowdata <- rowdata[!(rowdata %in% c("", " "))]
+    
+    for (logfieldnum in 1:length(rowdata)) {
+      # If odd, it's the key; if even, it's the value, where the preceding element
+      # is the corresponding key.
+      if (logfieldnum %% 2 == 0) {
+        colname <- rowdata[logfieldnum - 1]
+        # If the field doesn't exist, create it with the right length
+        if (!(colname %in% names(log_df))) {
+          log_df[[colname]] <- vector(mode = typeof(rowdata[logfieldnum]), length = rowcount)
+        }
+        log_df[[colname]][lognum] <- rowdata[logfieldnum]
+      }
+    }
+  }
+  
+  log_df <- as.data.frame(log_df, stringsAsFactors = FALSE)
+  log_df
 }

@@ -15,6 +15,4 @@ test_that("bind_rows_loggit works", {
 test_that("log_rotate works", {
   fail()
 })
-
-
 cleanup()

@@ -1,35 +1,30 @@
-#' Log ndjson to file
+#' Log entries to file
 #'
 #' This function executes immediately before the function definitions for the
 #' base handler functions ([message][base::message], [warning][base::warning],
 #' and [stop][base::stop], and logs their timestamped output (a bit more
-#' verbosely) to a log file. The log file defaults to a
-#' [JSON](https://www.json.org/) file, which is a portable file format that is
-#' easily parsed by many systems, but will eventually have a `.txt` option as
-#' well.
+#' verbosely) to a log file. The log file is an
+#' [ndjson](https://www.ndjson.org/) file, which is a portable, JSON-based
+#' format that is easily parsed by many line-processing systems.
 #'
-#' While this function has an intended use of logging handler messages without
-#' any direct user interaction, it is flexible enough to be used as you see fit.
-#'
-#' @param log_lvl Level of log output. In actual practice, one of "INFO",
-#'   "WARN", and "ERROR" are common, but any string may be supplied. Will be
-#'   coerced to class `character`.
+#' @param log_lvl Level of log output. In actual practice, one of "DEBUG",
+#'   "INFO", "WARN", and "ERROR" are common, but any string may be supplied if
+#'   `custom_log_lvl` is TRUE. Will be coerced to class `character`.
 #' @param log_msg Main log message. Will be coerced to class `character`.
-#' @param log_detail Additional detail recorded along with a log message.
 #' @param ... A named `list` or named `vector` (each element of length one) of
 #'   other custom fields you wish to log. You do not need to explicitly provide
 #'   these fields as a formal list or vector, as shown in the example; R handles
 #'   the coercion.
-#' @param echo Should a message be printed to the console as well? Defaults to
-#'   `TRUE`, and is truncated to just the level & message of the log. This
+#' @param echo Should the log file entry be printed to the console as well?
+#'   Defaults to `TRUE`, and will print out the `ndjson` line to be logged. This
 #'   argument is passed as `FALSE` when called from `loggit`'s handlers, since
 #'   they still call base R's handlers at the end of execution, all of which
 #'   print to the console as well.
 #' @param custom_log_lvl Allow log levels other than "DEBUG", "INFO", "WARN",
 #'   and "ERROR"? Defaults to `FALSE`, to prevent possible typos by the
-#'   developer. Note that passing a custom level will only throw 'messages',
-#'   e.g. you will not be able to raise errors or warnings using custom log
-#'   levels.
+#'   developer, and to limit the variation in structured log contents. Overall,
+#'   setting this to `TRUE`` is not recommended, but is an option for
+#'   consistency with other frameworks the user may work with.
 #'
 #' @examples
 #'   loggit("INFO", "This is a message", but_maybe = "you want more fields?",
@@ -59,13 +54,15 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
       log_lvl = as.character(log_lvl),
       log_msg = as.character(log_msg),
       dots,
-      stringsAsFactors = FALSE)
+      stringsAsFactors = FALSE
+    )
   } else {
     log_df <- data.frame(
       timestamp = timestamp,
       log_lvl = as.character(log_lvl),
       log_msg = as.character(log_msg),
-      stringsAsFactors = FALSE)
+      stringsAsFactors = FALSE
+    )
   }
   
   write_ndjson(log_df, echo = echo)
@@ -75,25 +72,33 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
 #' Return log file as an R data frame
 #'
 #' This function returns a `data.frame` containing all the logs in the provided
-#' ndJSON log file. If no explicit log file is provided, calling this function
-#' will return a data frame of the log file currently pointed to by the `loggit`
-#' functions.
+#' `ndjson`` log file. If no explicit log file is provided, calling this
+#' function will return a data frame of the log file currently pointed to by the
+#' `loggit` functions.
 #'
 #' @param logfile Path to log file. Will default to currently-set logfile.
+#' @param log_format Format of log file. Defaults to "ndjson". Note that this
+#'   may never have another option in the future, but the code is written to
+#'   support it dynamically in the future, mostly as a placeholder to the
+#'   author.
 #'
 #' @return A `data.frame`.
 #'
 #' @examples
 #'   set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
 #'   message("Test log message")
-#'   read_logs(get_logfile())
+#'   read_logs()
 #'
 #' @export
-read_logs <- function(logfile) {
+read_logs <- function(logfile, log_format = "ndjson") {
   if (missing(logfile)) logfile <- .config$logfile
   if (!file.exists(logfile)) {
     base::stop("Log file does not exist")
-  } else {
-    read_ndjson(logfile)
   }
+  
+  # This function may or may not take other log formats in the future, but I'm
+  # making it dynamic for now anyway.
+  
+  # Dynamically choose reader function based on input format
+  eval(str2expression(sprintf("read_%s(logfile)", log_format)))
 }

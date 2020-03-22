@@ -3,21 +3,39 @@
 - Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
   free from external dependencies.
 
+- `loggit()` now logs explicitly to `ndjson`-formatted log files. Each log entry
+  is self-contained on its own line, as its own JSON object. Previously, the log
+  files were each a single JSON *array*, with JSON objects as the elements. This
+  change provides several benefits over the old way of logging.
+
+  Please note that this change means that log entries should not contain any
+  embedded newline characters (`\r`, `\n`, or `\r\n`), as this will break the
+  logging format of the file. Your logs will still be written, but parsing the
+  data, either with external tool or the included `read_logs()` function may not
+  behave correctly.
+  
+  Note that despite the significant backend behavioral changes presented here,
+  the user-facing API for this package has changed very little (documented
+  below)
+
+- `get_logs()` was renamed to `read_logs()`.
+
 - Removed `log_detail` as an explicit argument to `loggit()`. This is a
   non-breaking change, since `loggit()` will still pick up and log that field if
   provided, but it is no longer a formal argument.
 
 - `loggit()` no longer complains that a persistent log file is not set, and
   instead relies on the user to take note of the logfile's location in the
-  assigned tempdir.
+  assigned tempdir. This can be avoided entirely by setting the log file
+  explicitly at runtime, as has always been the case.
 
-- Configuration functions are all now in snake-case, e.g.
-  `set_timestamp_format()` instead of `setTimestampFormat()`.
+- All configuration `set` and `get` functions are all now in snake-case, e.g.
+  `set_logfile()` instead of `setLogFile()`.
 
-- `set_timestamp_format()` now defaults to ISO-8601 time format. The function
-  itself still provides no means to set a timezone, and this is deliberate. This
-  ensures that all software on the host reports identical timezone data by
-  default.
+- `set_timestamp_format()` now defaults to ISO-8601 time format, i.e.
+  `YYYY-MM-DDTHH:MM:SS+z`. The function itself still provides no means to set a
+  timezone, and this is deliberate. This ensures that all software on the host
+  reports identical timezone data by default.
 
 # loggit 1.2.0
 

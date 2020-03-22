@@ -7,14 +7,7 @@
 \alias{stop}
 \title{loggit's Exception Handlers}
 \usage{
-message(
-  ...,
-  domain = NULL,
-  appendLF = TRUE,
-  .loggit = TRUE,
-  log_detail = "",
-  echo = FALSE
-)
+message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, echo = TRUE)
 
 warning(
   ...,
@@ -23,18 +16,10 @@ warning(
   noBreaks. = FALSE,
   domain = NULL,
   .loggit = TRUE,
-  log_detail = "",
-  echo = FALSE
+  echo = TRUE
 )
 
-stop(
-  ...,
-  call. = TRUE,
-  domain = NULL,
-  .loggit = TRUE,
-  log_detail = "",
-  echo = FALSE
-)
+stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, echo = TRUE)
 }
 \arguments{
 \item{...}{zero or more objects which can be coerced to character
@@ -49,11 +34,8 @@ stop(
 
 \item{.loggit}{Should loggit function execute? Defaults to \code{TRUE}.}
 
-\item{log_detail}{Additional information to accompany log message. Must be a
-string.}
-
-\item{echo}{Should loggit's log be echoed to the console, as well? Defaults
-to \code{FALSE}.}
+\item{echo}{Should loggit's log entry be echoed to the console, as well?
+Defaults to \code{TRUE}.}
 
 \item{call.}{logical, indicating if the call should become part of the
     warning message.}
@@ -67,16 +49,13 @@ to \code{FALSE}.}
 \description{
 These exception handlers are identical to base R's \link[base:message]{message},
 \link[base:warning]{warning}, and \link[base:stop]{stop}, but with included logging
-of the exception messages.
+of the exception messages via \code{loggit()}.
 }
 \examples{
-  agree_to_upcoming_loggit_updates()
   if (2 < 1) message("Don't say such silly things!")
 
-  agree_to_upcoming_loggit_updates()
   if (2 < 1) warning("You may want to review that math, and so this is your warning")
 
-  agree_to_upcoming_loggit_updates()
   if (2 < 1) stop("This is a completely false condition, which throws an error")
 
 }

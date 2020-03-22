@@ -34,18 +34,10 @@ cleanup()
 # ===
 context("Log file can be returned as data.frame")
 
-test_that("Log file is returned via get_logs()", {
-  fail()
-})
-
-cleanup()
-
-
-# ===
-context("Log file is ndjson")
-
-test_that("Log file is ndjson", {
-  fail()
+test_that("Log file is returned via read_logs()", {
+  message("msg", echo = FALSE)
+  log_df <- read_logs()
+  expect_true("data.frame" %in% class(log_df))
 })
 
 cleanup()
