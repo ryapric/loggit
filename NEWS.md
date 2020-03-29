@@ -3,20 +3,29 @@
 - Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
   free from external dependencies.
 
-- `loggit()` now logs explicitly to `ndjson`-formatted log files. Each log entry
-  is self-contained on its own line, as its own JSON object. Previously, the log
+- `loggit()` now logs explicitly to `ndjson`-formatted log files. This is
+  handled internally by the `write_ndjson()` function. Each log entry is
+  self-contained on its own line, as its own JSON object. Previously, the log
   files were each a single JSON *array*, with JSON objects as the elements. This
   change provides several benefits over the old way of logging.
 
   Please note that this change means that log entries should not contain any
   embedded newline characters (`\r`, `\n`, or `\r\n`), as this will break the
-  logging format of the file. Your logs will still be written, but parsing the
-  data, either with external tool or the included `read_logs()` function may not
-  behave correctly.
+  logging format of the file. Your logs will still be written (with a
+  `base::warning`), but parsing the data with external tools or the included
+  `read_logs()` function may not behave correctly. `loggit` could one day
+  enforce these content rules internally, but the decision for now is to stay
+  out of the way of the user code generating the logs, and put the onus of
+  correction on the developer.
   
   Note that despite the significant backend behavioral changes presented here,
   the user-facing API for this package has changed very little (documented
-  below)
+  below).
+
+- Added `rotate_logs()`, which rotates the log file on disk based on its line
+  count. This is *not* an automated process, as depending on the size of your
+  log file, this could cause performance degradation if called on every *n*th
+  write. See function docs for more details.
 
 - `get_logs()` was renamed to `read_logs()`.
 

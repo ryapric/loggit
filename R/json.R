@@ -22,6 +22,11 @@ write_ndjson <- function(log_df, echo = TRUE, overwrite = FALSE) {
       # Only log non-NA entries to JSON, in case there's more than one to flush
       # at once
       if (!is.na(log_df[row, col])) {
+        # Throw warning if embedded newlines are detected
+        if (grepl("\\n|\\r", log_df[row, col])) {
+          base::warning(paste0("Logs in ndjson format should not have embedded newlines!\n",
+                               "found here: ", log_df[row, col]))
+        }
         logdata[row] <- paste0(logdata[row], sprintf('\"%s\": \"%s\", ', col, log_df[row, col]))
       }
     }
