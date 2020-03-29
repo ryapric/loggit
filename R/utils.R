@@ -20,4 +20,16 @@ bind_rows_loggit <- function(df1, df2) {
 }
 
 
-log_rotate <- function() {}
+#' Rotate log file
+#'
+#' @param rotate_lines 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+rotate_logs <- function(rotate_lines = 100000) {
+  log_df <- read_logs(.config$logfile)
+  log_df <- log_df[(nrow(log_df) - rotate_lines + 1):nrow(log_df), ]
+  write_ndjson(log_df, echo = FALSE, overwrite = TRUE)
+}

@@ -12,7 +12,16 @@ test_that("bind_rows_loggit works", {
 })
 
 
-test_that("log_rotate works", {
-  fail()
+test_that("rotate_logs works", {
+  for (i in 1:100) {
+    loggit("INFO", paste0("log_", i), echo = FALSE)
+  }
+  
+  rotate_lines <- 50
+  rotate_logs(rotate_lines)
+  
+  log_df <- read_logs()
+  
+  expect_true(nrow(log_df) == rotate_lines)
 })
 cleanup()

@@ -2,16 +2,16 @@
 % Please edit documentation in R/json.R
 \name{write_ndjson}
 \alias{write_ndjson}
-\title{Title}
+\title{Write ndJSON-formatted log file}
 \usage{
-write_ndjson(log_df, echo = TRUE)
+write_ndjson(log_df, echo = TRUE, overwrite = FALSE)
 }
 \arguments{
-\item{log_df}{}
+\item{overwrite}{}
 }
 \value{
 
 }
 \description{
-Title
+Write ndJSON-formatted log file
 }

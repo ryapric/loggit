@@ -1,12 +1,14 @@
-#' Title
+#' Write ndJSON-formatted log file
 #'
 #' @param log_df
+#' @param echo
+#' @param overwrite
 #'
 #' @return
 #' @export
 #'
 # @examples
-write_ndjson <- function(log_df, echo = TRUE) {
+write_ndjson <- function(log_df, echo = TRUE, overwrite = FALSE) {
   # logdata will be built into a character vector where each element is a valid
   # JSON object, constructed from each row of the log data frame.
   logdata <- character(nrow(log_df))
@@ -28,9 +30,9 @@ write_ndjson <- function(log_df, echo = TRUE) {
     logdata[row] <- paste0(logdata[row], "}")
   }
   
-  # Cat out if echo is on, and append to log file
+  # Cat out if echo is on, and write to log file
   if (echo) cat(logdata, sep = "\n")
-  write(logdata, file = .config$logfile, append = TRUE)
+  write(logdata, file = .config$logfile, append = !overwrite)
 }
 
 #' Read ndJSON-formatted log file
