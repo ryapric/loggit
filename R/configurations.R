@@ -6,8 +6,8 @@
 #'
 #' Set the log file that loggit will write to. No logs outside of a temporary
 #' directory will be written until this is set explicitly, as per CRAN policy.
-#' Therefore, the default behavior is to create a file named `loggit.log` in a
-#' temporary directory.
+#' Therefore, the default behavior is to create a file named `loggit.log` in
+#' your system's temporary directory.
 #'
 #' A suggested use of this function would be to call it early, to log to the
 #' current working directory, as follows: `set_logfile(paste0(getwd(),
@@ -15,8 +15,8 @@
 #' this function in `.onLoad()` so that the logfile is set when your package
 #' loads.
 #'
-#' @param logfile Full path to log file. If not provided, will write to
-#'   `<tmpdir>/loggit.log`.
+#' @param logfile Full or relative path to log file. If not provided, will write
+#'   to `<tmpdir>/loggit.log`.
 #' @param confirm Print confirmation of log file setting? Defaults to `TRUE`.
 #'
 #' @examples set_logfile(file.path(tempdir(), "loggit.log"))
@@ -27,8 +27,8 @@ set_logfile <- function(logfile = NULL, confirm = TRUE) {
     .config$logfile <- file.path(tempdir(), "loggit.log")
   } else {
     .config$logfile <- logfile
-    if (confirm) print(paste0("Log file set to ", logfile))
   }
+  if (confirm) print(paste0("Log file set to ", logfile))
 }
 
 

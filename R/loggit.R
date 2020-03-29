@@ -36,7 +36,7 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
   log_lvls <- c("DEBUG", "INFO", "WARN", "ERROR")
   if (!(log_lvl %in% log_lvls) && !custom_log_lvl) {
     base::stop(paste0("Nonstandard log_lvl ('", log_lvl, "').\n",
-                      "Please check if you made a typo.\n",
+                      "Should be one of DEBUG, INFO, WARN, or ERROR. Please check if you made a typo.\n",
                       "If you insist on passing a custom level, please set 'custom_log_lvl = TRUE' in the call to 'loggit()'."
     ))
   }
