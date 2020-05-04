@@ -1,5 +1,5 @@
 ---
-title: "getting-started"
+title: "Getting Started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{getting-started}
@@ -14,6 +14,175 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, include = FALSE}
 library(loggit)
 ```
+
+`loggit` is an easy-to-use, yet powerful, [`ndjson`](https://github.com/ndjson)
+logger. It is very fast, has zero external dependencies, and can be as
+straightforward or as integral as you want to make it.
+
+R has a selection of built-in functions for handling different *exceptions*, or
+special cases where diagnostic messages are provided, and/or function execution
+is halted because of an error. However, R itself provides nothing to record this
+diagnostic post-hoc; useRs are left with what is printed to the console as their
+only means of analyzing the what-went-wrong of their code. There are some
+slightly hacky ways of capturing this console output, such as `sink`ing to a
+text file, repetitively `cat`ing identical exception messages that are passed to
+existing handler calls, etc. But there are two main issues with these
+approaches:
+
+1.  The console output is not at all easy to parse, so that a user can quickly
+    identify the causes of failure without manually scanning through it
+
+2.  Even if the user tries to structure a text file output, they would likely
+    have to ensure consistency in that output across all their work, and there
+    is still the issue of parsing that text file into a familiar, usable format
+
+Enter: [JSON](https://www.json.org/)
+
+For those unaware: JSON is a lightweight, portable (standardized) data format
+that is easy to read and write by both humans and machines. An excerpt from the
+introduction of the JSON link above:
+
+>JSON (JavaScript Object Notation) is a lightweight data-interchange format. It
+is easy for humans to read and write. It is easy for machines to parse and
+generate. It is based on a subset of the JavaScript Programming Language,
+Standard ECMA-262 3rd Edition - December 1999. JSON is a text format that is
+completely language independent but uses conventions that are familiar to
+programmers of the C-family of languages, including C, C++, C\#, Java,
+JavaScript, Perl, Python, and many others. These properties make JSON an ideal
+data-interchange language.
+
+Basically, you can think of JSON objects like you would think of `list`s in R: a
+set of named key-value pairs. Since R `list`s are subsets of the `data.frame`
+class, logs written by `loggit` are easily retrievable as data frames -- this
+means you can analyze your log data, *right from your R code!*
+
+What `loggit` does a bit differently is write logs as *newline-delimited JSON*
+(`ndsjon`). Instead of a JSON file that looks like this:
+
+```
+[
+  {
+    "key1": "value1"
+  },
+  {
+    "key2": "value2"
+  }
+]
+```
+
+`loggit`'s logs containing the same data will instead put each object on its own
+line:
+
+```
+{"key1": "value1"}
+{"key2": "value2"}
+```
+
+This makes the log entries themselves exhibit very fast disk write speeds, while
+still being machine-parsable, human-readable, and ideal for log stream
+collection systems (like the `stdout` of your terminal, or a container in Docker
+or Kubernetes).
+
+How to Use `loggit`
+-------------------
+
+To write a log entry using `loggit` via its exception handlers, you just load
+`loggit`, set its log file location, and use the same handlers you always do:
+
+```{r handlers_0, eval = FALSE}
+library(loggit)
+
+set_logfile("/path/to/my/log/directory/loggit.log") # loggit enforces no specific file extension
+```
+```{r handlers}
+message("This is a message")
+warning("This is a warning")
+# stop("This is a critical error, so I'm not actually going to run it in this vignette")
+```
+
+You can see that the handlers will pring both the `loggit`-generated log entry,
+as well as their base default output. To only have the JSON print, wrap the call
+in the appropriate suppressor (i.e. `suppressMessages()` or
+`suppressWarnings()`). To only have the base text printed, pass `echo = FALSE`
+to the handler.
+
+And... that's it! You've introduced human-readable, machine-parsable logging
+into your workflow!
+
+However, surely you want more control over your logs.
+
+Behind the scenes, `loggit`'s core function, also called `loggit()`, is executed
+right before the base handlers with some sane defaults. However, the `loggit()`
+function is also exported for use by the developer:
+
+```{r loggit_func}
+loggit("INFO", "This is also a message")
+loggit("WARN", "This is also a warning")
+loggit("ERROR", "This is an error, but it won't stop your code from running like `stop()` does")
+```
+
+*"But why wouldn't I just use the handlers instead?"*
+
+Because `loggit()` exposes much greater flexibility to the user, by way of
+*custom fields*.
+
+```{r custom_fields}
+loggit(
+  "INFO",
+  "This is a message",
+  but_maybe = "you want more fields?",
+  sure = "why not?",
+  like = 2,
+  or = 10,
+  what = "ever"
+)
+```
+
+Since JSON is considered *semi-structured data* (sometimes called
+"schema-on-read"), you can log any custom fields you like, as *inconsistently*
+as you like. It all just ends up as text in a file, with no column structure to
+worry about.
+
+So, `loggit`'s log format is a special type of JSON. JSON objects are like
+`list`s -- and so are `data.frames`. To allow for the most flexibility, the
+`read_logs()` function is available to you, which reads in the currently-set log
+file as a data frame:
+
+```{r read_logs}
+read_logs()
+```
+
+Notice that `read_logs()` handles any columnar inconsistencies as mentioned
+above. If `read_logs()` finds a field that other entries don't have, it maps it
+to an empty string for that log entry. This was chosen over `NA`s to allow for
+consistency on re-write. You can, however, just replace all the empty strings
+with `NA` after read, if you want to.
+
+You can also pass a file path to `read_logs()`, and read that `loggit` log file
+instead.
+
+The other helpful utilities are as follows:
+
+- You can control the format of the timestamp in the logs; it defaults to ISO
+  format `"%Y-%m-%dT%H:%M:%S%z"`, but you may set it yourself using
+  `set_timestamp_format()`. Note that this format is ultimately passed to
+  `format.Date()`, so the supplied format needs to be valid.
+- You can control the output name & location of the log file using
+  `set_logfile(logfile)`. Similarly, you can retrieve the location of the
+  current log file using `get_logfile()`.
+
+Things to keep in mind
+----------------------
+
+- `loggit` will default to writing to an R temporary directory. As per CRAN
+  policies, ***a package cannot write*** to a user's "home filespace" without
+  approval. Therefore, you need to set the log file before any logs are written
+  to disk, using `set_logfile(logfile)` (I recommend in your working directory,
+  and naming it "loggit.log"). If you are using loggit in your own package, you
+  can wrap this in a call to `.onLoad()`, so that logging is set on package
+  load. If not, then make the set call as soon as possible (e.g. at the top of
+  your script(s), right after your calls to `library()`); otherwise, no logs
+  will be written to persistent storage!

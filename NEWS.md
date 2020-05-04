@@ -27,6 +27,8 @@
   log file, this could cause performance degradation if called on every *n*th
   write. See function docs for more details.
 
+- Added two vignettes: Getting Started, and Data Validation.
+
 - `get_logs()` was renamed to `read_logs()`.
 
 - Removed `log_detail` as an explicit argument to `loggit()`. This is a
