@@ -1,7 +1,9 @@
 ## Test environments
-* Local Manjaro Linux install, R 3.6.3
-* Debian Stretch, R 3.6.2
-* CRAN win-builder-release, R 3.6.3
+* Local Manjaro Linux install, R 4.0.0
+* Debian Stretch, R 3.6.3
+* CRAN win-builder-oldrelease
+* CRAN win-builder-release
+* CRAN win-builder-devel
 
 ## R CMD check results
 There were no ERRORs, WARNINGs, or NOTEs.

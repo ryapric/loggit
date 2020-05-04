@@ -1,7 +1,4 @@
-# Development version
-
-- Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
-  free from external dependencies.
+# loggit 2.0.0
 
 - `loggit()` now logs explicitly to `ndjson`-formatted log files. This is
   handled internally by the `write_ndjson()` function. Each log entry is
@@ -21,6 +18,9 @@
   Note that despite the significant backend behavioral changes presented here,
   the user-facing API for this package has changed very little (documented
   below).
+
+- Remove `dplyr` and `jsonlite` from `Imports`. This makes `loggit` entirely
+  free from external dependencies.
 
 - Added `rotate_logs()`, which rotates the log file on disk based on its line
   count. This is *not* an automated process, as depending on the size of your
