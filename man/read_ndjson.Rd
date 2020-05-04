@@ -7,10 +7,10 @@
 read_ndjson(logfile)
 }
 \arguments{
-\item{logfile}{}
+\item{logfile}{Log file to read from, and convert to a \code{data.frame}.}
 }
 \value{
-
+A \code{data.frame}
 }
 \description{
 Read ndJSON-formatted log file

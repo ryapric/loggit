@@ -1,8 +1,8 @@
 ---
-title: "data-validation"
+title: "getting-started"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{data-validation}
+  %\VignetteIndexEntry{getting-started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

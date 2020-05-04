@@ -56,6 +56,8 @@ get_logfile <- function() {
 #'
 #' @param ts_format ISO date format. Defaults to ISO-8601 (e.g.
 #'   "2020-01-01T00:00:00+0000").
+#' @param confirm Print confirmation message of timestamp format? Defaults to
+#'   `TRUE`.
 #'
 #' @examples set_timestamp_format("%Y-%m-%d %H:%M:%S")
 #'

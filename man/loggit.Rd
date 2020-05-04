@@ -35,7 +35,7 @@ This function executes immediately before the function definitions for the
 base handler functions (\link[base:message]{message}, \link[base:warning]{warning},
 and \link[base:stop]{stop}, and logs their timestamped output (a bit more
 verbosely) to a log file. The log file is an
-\href{https://www.ndjson.org/}{ndjson} file, which is a portable, JSON-based
+\href{https://github.com/ndjson}{ndjson} file, which is a portable, JSON-based
 format that is easily parsed by many line-processing systems.
 }
 \examples{
