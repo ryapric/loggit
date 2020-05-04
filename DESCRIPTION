@@ -1,15 +1,21 @@
 Package: loggit
-Title: Effortless Exception Logging
+Title: Modern Logging for the R Ecosystem
 Description:
-    A very simple and easy-to-use set of suspiciously-familiar functions. 'loggit'
-    provides a set of wrappings for base R's message(), warning(), and stop()
-    functions that maintain identical functionality, but also log the handler
-    message to a 'JSON' log file. While mostly automatic, powerful custom logging
-    is available via these handlers' logging function, loggit(), which is also
-    exported for use. No change in existing code is necessary to use this
-    package.
+    'loggit' is an effortless ndjson (newline-delimited JSON) logger, with two
+    primary log-writing interfaces. It provides a set of wrappings for base R's
+    message(), warning(), and stop() functions that maintain identical
+    functionality, but also log the handler message to an ndjson log file.
+    loggit also exports its internal 'loggit()' function for powerful and
+    configurable custom logging. No change in existing code is necessary to use
+    this package, and should only require additions to fully leverage the power
+    of the logging system. loggit also provides a log reader for reading an
+    ndjson log file into a data frame, log rotation, and live echo of the ndjson
+    log messages to terminal stdout for log capture by external systems (like
+    containers). loggit is ideal for Shiny apps, data pipelines, modeling
+    workflows, and more. Please see the vignettes for detailed example use
+    cases.
 Version: 1.2.0.9999
-Date: 2020-03-14
+Date: 2020-05-04
 Authors@R:
     person(given = "Ryan",
            family = "Price",
@@ -23,7 +29,7 @@ Suggests:
   testthat (>= 2.0.0)
 URL: https://github.com/ryapric/loggit
 BugReports: https://github.com/ryapric/loggit/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
