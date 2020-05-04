@@ -4,7 +4,7 @@
 #' base handler functions ([message][base::message], [warning][base::warning],
 #' and [stop][base::stop], and logs their timestamped output (a bit more
 #' verbosely) to a log file. The log file is an
-#' [ndjson](https://www.ndjson.org/) file, which is a portable, JSON-based
+#' [ndjson](https://github.com/ndjson) file, which is a portable, JSON-based
 #' format that is easily parsed by many line-processing systems.
 #'
 #' @param log_lvl Level of log output. In actual practice, one of "DEBUG",
@@ -66,39 +66,4 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
   }
   
   write_ndjson(log_df, echo = echo)
-}
-
-
-#' Return log file as an R data frame
-#'
-#' This function returns a `data.frame` containing all the logs in the provided
-#' `ndjson`` log file. If no explicit log file is provided, calling this
-#' function will return a data frame of the log file currently pointed to by the
-#' `loggit` functions.
-#'
-#' @param logfile Path to log file. Will default to currently-set logfile.
-#' @param log_format Format of log file. Defaults to "ndjson". Note that this
-#'   may never have another option in the future, but the code is written to
-#'   support it dynamically in the future, mostly as a placeholder to the
-#'   author.
-#'
-#' @return A `data.frame`.
-#'
-#' @examples
-#'   set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
-#'   message("Test log message")
-#'   read_logs()
-#'
-#' @export
-read_logs <- function(logfile, log_format = "ndjson") {
-  if (missing(logfile)) logfile <- .config$logfile
-  if (!file.exists(logfile)) {
-    base::stop("Log file does not exist")
-  }
-  
-  # This function may or may not take other log formats in the future, but I'm
-  # making it dynamic for now anyway.
-  
-  # Dynamically choose reader function based on input format
-  eval(str2expression(sprintf("read_%s(logfile)", log_format)))
 }
