@@ -1,0 +1,146 @@
+---
+title: "Data Validation with loggit"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{data-validation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include = FALSE}
+library(loggit)
+```
+
+`loggit` provides, first and foremost, a simple logging facility. However, the
+nature by which the logs are written and retrieved allow for users to analyze
+the log data locally, and not just in a remote log analytics tool (like Splunk).
+One of the most powerful ways to use `loggit`, and indeed the motivation for
+this package in the first place, is to use it as a data validation buffer.
+
+Say you have a data pipeline you've written in R. Maybe you read some input
+data, perform some transformations, and then output the results to a database.
+However, you worry that the data being output is of low quality. Maybe the
+integrity of the data is impacted during the transformations, or a grouping is
+lost after a join. By leveraging `loggit` as a validation buffer, you can
+prevent writing out erroneous data to the database and alert your team that the
+data quality is to blame.
+
+Let's take the `iris` dataset as a stand-in for real data:
+
+```{r iris_head}
+head(iris)
+```
+
+You're tasked with aggregating the data by `species`, finding the mean, and
+outputting the results. Easy enough; the rest of the work you did somewhere else
+in the analysis pipeline, renaming the columns in `iris` to be neater, etc.
+You'd named that cleaned data frame `iris_0`:
+
+```{r iris_booboo, echo = FALSE}
+iris_0 <- iris[iris$Sepal.Length > 4.5, ]
+colnames(iris_0) <- gsub('\\.', '_', tolower(colnames(iris_0)))
+```
+```{r iris_agg}
+head(iris_0)
+iris_agg <- aggregate(. ~ species, data = iris_0, mean)
+iris_agg
+```
+
+Nice and compact.
+
+However, you've been hearing from downstream that your aggregations don't seem
+right. You've tried to look through your code to find why that might be, but
+nothing stands out; and frankly, you haven't found the time to dig any deeper.
+It would be nice if you'd written a way to catch any miscalculations
+automatically, based on business logic.
+
+This is where `loggit` can help! A good workflow I like to use is to have all my
+code in functions (you should do this anyway), and then have separate,
+similarly-named validation functions that execute right before the end of the
+analysis functions:
+
+```{r validate_funcs, eval = FALSE}
+some_function <- function(df_in) {
+  # Do your regular transformations, modeling, etc.
+  df_out <- aggregate(in_some_way, df_in)
+  
+  # Just before returning from the function, call the validator, which logs out
+  # the result
+  validate_some_function(df_out, df_in)
+  
+  # Then, return or exit as usual
+  df_out
+}
+
+validate_some_function <- function(df_out, df_in) {
+  df_in_expected <- some_code_to_get_df_in_to_look_like_df_out
+  if (df_out$value != df_in_expected$value) {
+    loggit("ERROR", sprintf("Actual (%s) != Expected (%s)"), df_out$value, df_in_expected$value)
+  }
+}
+```
+
+Then, at the very end of your pipeline, script, etc. before the data is written
+out, you can check to see if you captured and data quality errors during the run
+(which should be in its own function):
+
+```{r validate_at_end, eval = FALSE}
+logdata <- read_logs()
+logdata <- logdata[logdata$log_lvl == "ERROR", ]
+if (nrow(logdata) > 0) {
+  logdata
+  stop("Data validation failures detected! Review above!")
+}
+```
+
+This will terminate the pipeline, and print an informative set of data to review
+(note that what's included is entirely dependent on how you logged the data out,
+and how you structure that failure message). Doing it this way also allows you
+to continue executing the full pipeline, without terminating until the very end,
+so you can see *all* the issues you wanted to track.
+
+Returning to our `iris` example: you suspect it's an issue with the
+`sepal_length` field causing data quality issues. So we can construct a (very
+targeted) validator for that like so:
+
+```{r validate_iris}
+validate_aggregate_iris <- function(iris_out, iris_in) {
+  actual_mean <- mean(iris_out$sepal_length)
+  expected_mean <- mean(iris_in$Sepal.Length)
+  if (actual_mean != expected_mean) {
+    loggit("ERROR", sprintf("Means differ! (actual = %.4f, expected = %.4f", actual_mean, expected_mean))
+  }
+}
+
+validate_aggregate_iris(iris_agg, iris)
+```
+
+Ah-ha! It was (at least) `Sepal.Length` that seems to be causing the issue! Now, you have an excuse to dig through your code (and can no longer blame it on "source data quality"). You find that you had this *tiiiny* line somewhere else in your code, where you subset the data for some reason:
+
+```r
+# WHY DID I FORGET ABOUT THIS UUUGGGHHH SO MUCH WASTED TIME
+iris_0 <- iris[iris$Sepal.Length > 4.5, ]
+```
+
+Now, you can either keep the subset and write the validation with that in mind,
+or remove the subset operation entirely. But careful planning and using `loggit`
+to track the pipeline quality helped narrow down the issue.
+
+In many ways, this feels like *unit testing your data quality*. It's also
+infinitely flexible; you can do validations in loops to prevent code repitition,
+you can use other libraries like
+[`validate`](https://cran.r-project.org/package=validate) to generate more
+validation output and log each result with `loggit`, and more. You can write as
+many of these validation functions as you think is necessary -- I had a project
+with nearly 50 once!
+
+Keep in mind that `loggit` only provides the *means* to track your job logs; the
+implementation is entirely up to you -- and that's what makes it both
+unobstrusive, and powerful!
