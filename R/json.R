@@ -1,14 +1,17 @@
 #' Write ndJSON-formatted log file
 #'
-#' @param log_df
-#' @param echo
-#' @param overwrite
+#' @param log_df Data frame of log data. Rows are converted to `ndjson` entries,
+#'   with the columns as the fields.
+#' @param logfile Log file to write to. Defaults to currently-configured log
+#'   file.
+#' @param echo Echo the `ndjson` entry to the R console? Defaults to `TRUE`.
+#' @param overwrite Overwrite previous log file data? Defaults to `FALSE`, and
+#'   so will append new log entries to the log file.
 #'
-#' @return
 #' @export
-#'
-# @examples
-write_ndjson <- function(log_df, echo = TRUE, overwrite = FALSE) {
+write_ndjson <- function(log_df, logfile, echo = TRUE, overwrite = FALSE) {
+  if (missing(logfile)) logfile <- get_logfile()
+  
   # logdata will be built into a character vector where each element is a valid
   # JSON object, constructed from each row of the log data frame.
   logdata <- character(nrow(log_df))
@@ -37,17 +40,15 @@ write_ndjson <- function(log_df, echo = TRUE, overwrite = FALSE) {
   
   # Cat out if echo is on, and write to log file
   if (echo) cat(logdata, sep = "\n")
-  write(logdata, file = .config$logfile, append = !overwrite)
+  write(logdata, file = logfile, append = !overwrite)
 }
 
 #' Read ndJSON-formatted log file
 #'
-#' @param logfile 
+#' @param logfile Log file to read from, and convert to a `data.frame`.
 #'
-#' @return
+#' @return A `data.frame`
 #' @export
-#'
-# @examples
 read_ndjson <- function(logfile) {
   logdata <- readLines(logfile)
   

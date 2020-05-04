@@ -4,14 +4,33 @@
 \alias{rotate_logs}
 \title{Rotate log file}
 \usage{
-rotate_logs(rotate_lines = 1e+05)
+rotate_logs(rotate_lines = 1e+05, logfile)
 }
 \arguments{
-\item{rotate_lines}{}
-}
-\value{
+\item{rotate_lines}{The number of log entries to keep in the logfile.
+Defaults to 100,000.}
 
+\item{logfile}{Log file to truncate. Defaults to the currently-configured log
+file.}
 }
 \description{
-Rotate log file
+Truncates the log file to the line count provided as \code{rotate_lines}.
+}
+\details{
+`loggit`` makes no assumptions nor enforcement of calling this function; that
+is to say, the onus of log rotation is up to the developer. You
+}
+\examples{
+  # Truncate "default" log file to 100 lines
+  set_logfile()
+  for (i in 1:150) {loggit("INFO", i, echo = FALSE)}
+  rotate_logs(100)
+  
+  # Truncate a different log file to 250 lines
+  another_log <- file.path(tempdir(), "another.log")
+  set_logfile(another_log)
+  for (i in 1:300) {loggit("INFO", i, echo = FALSE)}
+  set_logfile() # clears pointer to other log file
+  rotate_logs(250, another_log)
+
 }

@@ -4,13 +4,19 @@
 \alias{write_ndjson}
 \title{Write ndJSON-formatted log file}
 \usage{
-write_ndjson(log_df, echo = TRUE, overwrite = FALSE)
+write_ndjson(log_df, logfile, echo = TRUE, overwrite = FALSE)
 }
 \arguments{
-\item{overwrite}{}
-}
-\value{
+\item{log_df}{Data frame of log data. Rows are converted to \code{ndjson} entries,
+with the columns as the fields.}
 
+\item{logfile}{Log file to write to. Defaults to currently-configured log
+file.}
+
+\item{echo}{Echo the \code{ndjson} entry to the R console? Defaults to \code{TRUE}.}
+
+\item{overwrite}{Overwrite previous log file data? Defaults to \code{FALSE}, and
+so will append new log entries to the log file.}
 }
 \description{
 Write ndJSON-formatted log file
