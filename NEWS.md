@@ -46,6 +46,9 @@
   timezone, and this is deliberate. This ensures that all software on the host
   reports identical timezone data by default.
 
+- Removed package startup message; the previous message would have broken
+  formatting consistency if capturing logs via `stdout`/`stderr`.
+
 # loggit 1.2.0
 
 - Add error on calls to loggit(), indicating breaking changes upcoming in v2.0.
