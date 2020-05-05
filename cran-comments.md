@@ -1,3 +1,11 @@
+## Resubmission
+
+This is a resubmission. I have changed:
+
+* The DESCRIPTION to single-quote all software names.
+
+* The file LICENSE now adheres to the CRAN MIT template.
+
 ## Test environments
 * Local Manjaro Linux install, R 4.0.0
 * Debian Stretch, R 3.6.3
