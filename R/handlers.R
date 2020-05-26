@@ -21,9 +21,9 @@ NULL
 #'
 #' @export
 message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, echo = TRUE) {
-  args <- list(...)
+  args <- paste(list(...), collapse = "")
   if(.loggit) {
-    loggit(log_lvl = "INFO", log_msg = args[[1]], echo = echo)
+    loggit(log_lvl = "INFO", log_msg = args, echo = echo)
   }
   base::message(unlist(args), domain = domain, appendLF = appendLF)
 }
@@ -39,7 +39,7 @@ message <- function(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, echo = 
 #' @export
 warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE, 
                     domain = NULL, .loggit = TRUE, echo = TRUE) {
-  args <- list(...)
+  args <- paste(list(...), collapse = "")
   if (.loggit) {
     loggit(log_lvl = "WARN", log_msg = args[[1]], echo = echo)
   }
@@ -57,7 +57,7 @@ warning <- function(..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,
 #' 
 #' @export
 stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, echo = TRUE) {
-  args <- list(...)
+  args <- paste(list(...), collapse = "")
   if (.loggit) {
     loggit(log_lvl = "ERROR", log_msg = args[[1]], echo = echo)
   }

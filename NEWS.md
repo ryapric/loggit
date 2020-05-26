@@ -1,3 +1,12 @@
+# Dev version
+
+- Change behavior of handler masks to respect multiple arguments. Achieved by
+  changing explicit list indexing to `paste(..., collapse = "")` (#12).
+
+- Remove `loggit::stopifnot` tests, since `stopifnot()` is not provided as a
+  handler mask by this package (`stopifnot()` has no custom messaging mechanic
+  to log).
+
 # loggit 2.0.0
 
 - `loggit()` now logs explicitly to `ndjson`-formatted log files. This is
