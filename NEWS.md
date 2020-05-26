@@ -1,4 +1,4 @@
-# Dev version
+# loggit 2.0.1
 
 - Change behavior of handler masks to respect multiple arguments. Achieved by
   changing explicit list indexing to `paste(..., collapse = "")` (#12).
