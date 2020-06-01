@@ -41,7 +41,8 @@ bind_rows_loggit <- function(df1, df2) {
 #'   read_logs()
 #'
 #' @export
-read_logs <- function(logfile, log_format = "ndjson") {
+read_logs <- function(logfile, unsanitize, log_format = "ndjson") {
+  if (missing(unsanitize)) base::stop()
   if (missing(logfile)) logfile <- get_logfile()
   if (!file.exists(logfile)) {
     base::stop("Log file does not exist")

@@ -25,13 +25,16 @@
 #'   developer, and to limit the variation in structured log contents. Overall,
 #'   setting this to `TRUE`` is not recommended, but is an option for
 #'   consistency with other frameworks the user may work with.
+#' @param sanitizer Sanitizer function to run over elements in log data. The
+#'   default sanitizer, if not specified, is
+#'   [default_ndjson_sanitizer()][loggit::default_ndjson_sanitizer].
 #'
 #' @examples
 #'   loggit("INFO", "This is a message", but_maybe = "you want more fields?",
 #'   sure = "why not?", like = 2, or = 10, what = "ever")
 #'
 #' @export
-loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
+loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE, sanitizer) {
   # Try to suggest limited log levels to prevent typos by users
   log_lvls <- c("DEBUG", "INFO", "WARN", "ERROR")
   if (!(log_lvl %in% log_lvls) && !custom_log_lvl) {
@@ -63,6 +66,17 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE) {
       log_msg = as.character(log_msg),
       stringsAsFactors = FALSE
     )
+  }
+  
+  # Sanitize
+  if (missing(sanitizer)) {
+    sanitize <- loggit:::default_ndjson_sanitizer
+  } else {
+    sanitize <- sanitizer
+  }
+  
+  for (field in colnames(log_df)) {
+    log_df[, field] <- sanitize(log_df[, field])
   }
   
   write_ndjson(log_df, echo = echo)

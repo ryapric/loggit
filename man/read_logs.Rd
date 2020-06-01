@@ -4,7 +4,7 @@
 \alias{read_logs}
 \title{Return log file as an R data frame}
 \usage{
-read_logs(logfile, log_format = "ndjson")
+read_logs(logfile, unsanitize, log_format = "ndjson")
 }
 \arguments{
 \item{logfile}{Path to log file. Will default to currently-set log file.}

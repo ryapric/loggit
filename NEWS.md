@@ -1,3 +1,19 @@
+# loggit 2.1.0
+
+- Add `sanitizer` argument to `loggit()`. Sanitizers allow for custom
+  replacements of invalid (nd)JSON characters in the submitted log data. If not
+  provided, `loggit()` will invoke its default sanitizer, which (curently)
+  replaces characters as follows:
+
+  | Character | Replacement      |
+  |:--------: | :--------------: |
+  | `{`       | `__LEFTBRACE__`  |
+  | `}`       | `__RIGHTBRACE__` |
+  | `"`       | `__DBLQUOTE__`   |
+  | `,`       | `__COMMA__`      |
+  | `\r`      | `__CR__`         |
+  | `\n`      | `__LF__`         |
+
 # loggit 2.0.1
 
 - Change behavior of handler masks to respect multiple arguments. Achieved by

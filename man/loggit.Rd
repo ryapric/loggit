@@ -4,7 +4,7 @@
 \alias{loggit}
 \title{Log entries to file}
 \usage{
-loggit(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE)
+loggit(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE, sanitizer)
 }
 \arguments{
 \item{log_lvl}{Level of log output. In actual practice, one of "DEBUG",
@@ -29,6 +29,10 @@ and "ERROR"? Defaults to \code{FALSE}, to prevent possible typos by the
 developer, and to limit the variation in structured log contents. Overall,
 setting this to `TRUE`` is not recommended, but is an option for
 consistency with other frameworks the user may work with.}
+
+\item{sanitizer}{Sanitizer function to run over elements in log data. The
+default sanitizer, if not specified, is
+\link[loggit:default_ndjson_sanitizer]{default_ndjson_sanitizer()}.}
 }
 \description{
 This function executes immediately before the function definitions for the

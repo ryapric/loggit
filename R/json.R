@@ -1,3 +1,26 @@
+#' Default sanitizer for ndJSON.
+#'
+#' This is the default ndJSON sanitizer function for incoming log data. This
+#' type of function is needed because since `loggit` reimplements its own
+#' string-based JSON parser, and not a fancy one built from an AST or something,
+#' it's very easy to have bad patterns break your logs.
+default_ndjson_sanitizer <- function(string) {
+  map <- list(
+    "\\{" = "__LEFTBRACE__",
+    "\\}" = "__RIGHTBRACE__",
+    '"' = "__DBLQUOTE__",
+    "," = "__COMMA__",
+    "\r" = "__CR__",
+    "\n" = "__LF__"
+  )
+  
+  for (k in names(map)) {
+    string <- gsub(k, map[k], string)
+  }
+  
+  string
+}
+
 #' Write ndJSON-formatted log file
 #'
 #' @param log_df Data frame of log data. Rows are converted to `ndjson` entries,
@@ -57,7 +80,7 @@ read_ndjson <- function(logfile) {
   
   # Split out the log data into individual pieces, which will include JSON keys
   # AND values
-  log_kvs <- strsplit(logdata, '\\{|"|,|: |\\}')
+  log_kvs <- strsplit(logdata, '\\{|"|", |: |\\}')
   
   rowcount <- length(log_kvs)
   for (lognum in 1:rowcount) {
