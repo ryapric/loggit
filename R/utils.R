@@ -23,36 +23,33 @@ bind_rows_loggit <- function(df1, df2) {
 #' Return log file as an R data frame
 #'
 #' This function returns a `data.frame` containing all the logs in the provided
-#' `ndjson`` log file. If no explicit log file is provided, calling this
-#' function will return a data frame of the log file currently pointed to by the
-#' `loggit` functions.
+#' `ndjson` log file. If no explicit log file is provided, calling this function
+#' will return a data frame of the log file currently pointed to by the `loggit`
+#' functions.
 #'
 #' @param logfile Path to log file. Will default to currently-set log file.
-#' @param log_format Format of log file. Defaults to "ndjson". Note that this
-#'   may never have another option in the future, but the code is written to
-#'   support it dynamically in the future, mostly as a placeholder to the
-#'   author.
+#' @param unsanitizer Unsanitizer function to use. For more info on sanitizers,
+#'   please see the [sanitizers] section of the package documentation.
 #'
 #' @return A `data.frame`.
 #'
 #' @examples
-#'   set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
+#'   set_logfile(file.path(tempdir(), "loggit.log"), confirm = FALSE)
 #'   message("Test log message")
 #'   read_logs()
 #'
 #' @export
-read_logs <- function(logfile, unsanitize, log_format = "ndjson") {
-  if (missing(unsanitize)) base::stop()
+read_logs <- function(logfile, unsanitizer) {
+  if (missing(unsanitizer)) {
+    unsanitizer <- default_ndjson_unsanitizer
+  }
+  
   if (missing(logfile)) logfile <- get_logfile()
   if (!file.exists(logfile)) {
     base::stop("Log file does not exist")
   }
   
-  # This function may or may not take other log formats in the future, but I'm
-  # making it dynamic for now anyway.
-  
-  # Dynamically choose reader function based on input format
-  eval(str2expression(sprintf("read_%s(logfile)", log_format)))
+  read_ndjson(logfile, unsanitizer = unsanitizer)
 }
 
 
@@ -60,7 +57,7 @@ read_logs <- function(logfile, unsanitize, log_format = "ndjson") {
 #' 
 #' Truncates the log file to the line count provided as `rotate_lines`. 
 #' 
-#' `loggit`` makes no assumptions nor enforcement of calling this function; that
+#' `loggit` makes no assumptions nor enforcement of calling this function; that
 #' is to say, the onus of log rotation is up to the developer. You 
 #'
 #' @param rotate_lines The number of log entries to keep in the logfile.

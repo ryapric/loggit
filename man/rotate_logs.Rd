@@ -17,7 +17,7 @@ file.}
 Truncates the log file to the line count provided as \code{rotate_lines}.
 }
 \details{
-`loggit`` makes no assumptions nor enforcement of calling this function; that
+\code{loggit} makes no assumptions nor enforcement of calling this function; that
 is to say, the onus of log rotation is up to the developer. You
 }
 \examples{

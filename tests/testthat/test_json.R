@@ -18,7 +18,7 @@ test_that("write_logs() and read_logs() work in tandem", {
     stringsAsFactors = FALSE
   )
   
-  log_df_got <- read_logs(get_logfile(), log_format = "ndjson")
+  log_df_got <- read_logs(get_logfile())
   
   expect_equal(log_df_want, log_df_got)
 })
@@ -42,8 +42,43 @@ test_that("write_logs() and read_logs() work with disallowed JSON characters via
     ),
     stringsAsFactors = FALSE
   )
-  log_df_got <- read_logs()
+  
+  # Need to pass in a dummy unsanitizer, to return the sanitized strings as-is
+  # for checking
+  log_df_got <- read_logs(unsanitizer = function(x) {x})
   
   expect_equal(log_df_want, log_df_got)
+})
+cleanup()
+
+test_that("read_logs() works with unsanitizers", {
+  loggit("INFO", 'default { } , " \r \n unsanitizer', echo = FALSE)
+  
+  comma_replacer <- function(string) {
+    string <- gsub(",", " - ", string)
+    string
+  }
+  dash2comma_replacer <- function(string) {
+    string <- gsub(" - ", ",", string)
+    string
+  }
+  loggit("INFO", "custom,unsanitizer", echo = FALSE, sanitizer = comma_replacer)
+  
+  log_df_want <- data.frame(
+    timestamp = rep(format(Sys.time(), format = get_timestamp_format()), 2),
+    log_lvl = c("INFO", "INFO"),
+    log_msg = c(
+      'default { } , " \r \n unsanitizer',
+      "custom,unsanitizer"
+    ),
+    stringsAsFactors = FALSE
+  )
+  
+  # Need to make two reads, for the two different unsanitizers
+  log_df_got_default <- read_logs()[1, ]
+  log_df_got_custom <- read_logs(unsanitizer = dash2comma_replacer)[2, ]
+  
+  expect_equal(log_df_want[1, ], log_df_got_default)
+  expect_equal(log_df_want[2, ], log_df_got_custom)
 })
 cleanup()

@@ -4,10 +4,12 @@
 \alias{read_ndjson}
 \title{Read ndJSON-formatted log file}
 \usage{
-read_ndjson(logfile)
+read_ndjson(logfile, unsanitizer)
 }
 \arguments{
 \item{logfile}{Log file to read from, and convert to a \code{data.frame}.}
+
+\item{unsanitizer}{Unsanitizer function passed in from \code{\link[=read_logs]{read_logs()}}.}
 }
 \value{
 A \code{data.frame}

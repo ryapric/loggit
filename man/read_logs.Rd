@@ -4,25 +4,25 @@
 \alias{read_logs}
 \title{Return log file as an R data frame}
 \usage{
-read_logs(logfile, unsanitize, log_format = "ndjson")
+read_logs(logfile, unsanitizer)
 }
 \arguments{
 \item{logfile}{Path to log file. Will default to currently-set log file.}
 
-\item{log_format}{Format of log file. Defaults to "ndjson". Note that this
-may never have another option in the future, but the code is written to
-support it dynamically in the future, mostly as a placeholder to the
-author.}
+\item{unsanitizer}{Unsanitizer function to use. For more info on sanitizers,
+please see the \link{sanitizers} section of the package documentation.}
 }
 \value{
 A \code{data.frame}.
 }
 \description{
 This function returns a \code{data.frame} containing all the logs in the provided
-\verb{ndjson`` log file. If no explicit log file is provided, calling this function will return a data frame of the log file currently pointed to by the }loggit` functions.
+\code{ndjson} log file. If no explicit log file is provided, calling this function
+will return a data frame of the log file currently pointed to by the \code{loggit}
+functions.
 }
 \examples{
-  set_logfile(file.path(tempdir(), "loggit.json"), confirm = FALSE)
+  set_logfile(file.path(tempdir(), "loggit.log"), confirm = FALSE)
   message("Test log message")
   read_logs()
 

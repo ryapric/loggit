@@ -26,8 +26,9 @@
 #'   setting this to `TRUE`` is not recommended, but is an option for
 #'   consistency with other frameworks the user may work with.
 #' @param sanitizer Sanitizer function to run over elements in log data. The
-#'   default sanitizer, if not specified, is
-#'   [default_ndjson_sanitizer()][loggit::default_ndjson_sanitizer].
+#'   default sanitizer, if not specified, is [default_ndjson_sanitizer()]. See
+#'   the [sanitizers] documentation for information on how to write your own
+#'   (un)sanitizer functions.
 #'
 #' @examples
 #'   loggit("INFO", "This is a message", but_maybe = "you want more fields?",
@@ -70,7 +71,7 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE, s
   
   # Sanitize
   if (missing(sanitizer)) {
-    sanitize <- loggit:::default_ndjson_sanitizer
+    sanitize <- default_ndjson_sanitizer
   } else {
     sanitize <- sanitizer
   }

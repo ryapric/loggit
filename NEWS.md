@@ -1,18 +1,38 @@
 # loggit 2.1.0
 
-- Add `sanitizer` argument to `loggit()`. Sanitizers allow for custom
-  replacements of invalid (nd)JSON characters in the submitted log data. If not
-  provided, `loggit()` will invoke its default sanitizer, which (curently)
-  replaces characters as follows:
+- Add `sanitizer` argument to `loggit()`, and an `unsanitizer` argument to
+  `read_logs()`. `loggit` chooses to reimplement basic JSON parsing
+  funcitonality instead of requiring a more full-featured external JSON library
+  like `jsonlite`. This reimplementation is string-pattern-based, and not based
+  on a more formal specification of JSON using an AST. As such, it isn't
+  brittle, per se, but it *is* weak to invalid JSON characters such as embedded
+  newlines, curly braces, double-quotes, some occurrences of commas or colons,
+  and the like.
+  
+  Sanitizers are functions allow for custom replacements of invalid (nd)JSON
+  characters in the submitted log data. Unsanitizer functions perform the
+  opposite action: replacing sanitized output with their original values when
+  read back inttohe R session. If not provided, `loggit()` and `read_logs()`
+  will invoke the default sanitizer table, which (currently) maps string
+  replacements as follows:
 
-  | Character | Replacement      |
-  |:--------: | :--------------: |
-  | `{`       | `__LEFTBRACE__`  |
-  | `}`       | `__RIGHTBRACE__` |
-  | `"`       | `__DBLQUOTE__`   |
-  | `,`       | `__COMMA__`      |
-  | `\r`      | `__CR__`         |
-  | `\n`      | `__LF__`         |
+  | Character | Replacement in log file |
+  |:--------- | :---------------------- |
+  | `{`       | `__LEFTBRACE__`         |
+  | `}`       | `__RIGHTBRACE__`        |
+  | `"`       | `__DBLQUOTE__`          |
+  | `,`       | `__COMMA__`             |
+  | `\r`      | `__CR__`                |
+  | `\n`      | `__LF__`                |
+
+  Users may specify their own (un)sanitizers as functions that take & return
+  single strings, though they are regardless encouraged to not include invalid
+  characters in the logs in the first place. Please refer to the documentation
+  for more details.
+
+- Removed `log_format` from `read_ndjson()`, because that was silly.
+
+- Removed some erroneous functions as exports in the `NAMESPACE`.
 
 # loggit 2.0.1
 

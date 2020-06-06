@@ -31,8 +31,9 @@ setting this to `TRUE`` is not recommended, but is an option for
 consistency with other frameworks the user may work with.}
 
 \item{sanitizer}{Sanitizer function to run over elements in log data. The
-default sanitizer, if not specified, is
-\link[loggit:default_ndjson_sanitizer]{default_ndjson_sanitizer()}.}
+default sanitizer, if not specified, is \code{\link[=default_ndjson_sanitizer]{default_ndjson_sanitizer()}}. See
+the parameter documentation for that function for information on how to
+write your own sanitizer/unsanitizer functions.}
 }
 \description{
 This function executes immediately before the function definitions for the
