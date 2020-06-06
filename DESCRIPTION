@@ -15,7 +15,7 @@ Description:
     modeling work flows, and more. Please see the vignettes for detailed example
     use cases.
 Version: 2.1.0
-Date: 2020-05-04
+Date: 2020-06-06
 Authors@R:
     person(given = "Ryan",
            family = "Price",
