@@ -32,8 +32,8 @@ consistency with other frameworks the user may work with.}
 
 \item{sanitizer}{Sanitizer function to run over elements in log data. The
 default sanitizer, if not specified, is \code{\link[=default_ndjson_sanitizer]{default_ndjson_sanitizer()}}. See
-the parameter documentation for that function for information on how to
-write your own sanitizer/unsanitizer functions.}
+the \link{sanitizers} documentation for information on how to write your own
+(un)sanitizer functions.}
 }
 \description{
 This function executes immediately before the function definitions for the

@@ -34,7 +34,8 @@ your logs. You may also specify your own sanitizer function to pass to
 of the log data.
 }
 \details{
-The default string patterns and their replacements are currently mapped as follows:\tabular{ll}{
+The default string patterns and their replacements are currently mapped as
+follows:\tabular{ll}{
    Character \tab Replacement in log file \cr
    \verb{\{} \tab \verb{__LEFTBRACE__} \cr
    \verb{\}} \tab \verb{__RIGHTBRACE__} \cr
