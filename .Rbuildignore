@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.*\.tar\.gz$
 ^.*\.log$
 ^.*\.json$
 ^.*\.txt$

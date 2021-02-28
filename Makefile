@@ -5,6 +5,8 @@
 PKGNAME = `sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION`
 PKGVERS = `sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`
 
+SHELL := /usr/bin/env bash -euo pipefail
+
 
 all: check
 
@@ -15,9 +17,6 @@ check: build
 	R CMD check --no-manual --as-cran $(PKGNAME)_$(PKGVERS).tar.gz
 
 check-docker:
-	@if [ -z $(RVERSION) ]; then \
-		printf "Must set RVERSION env variable\n" && exit 1; \
-	fi
 	@sed 's/RVERSION/$(RVERSION)/' Dockerfile-test > Dockerfile
 	@docker build -t loggit:$(RVERSION) .
 	@docker run --rm -it loggit:$(RVERSION)

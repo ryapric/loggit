@@ -1,3 +1,9 @@
+# loggit 2.1.1
+
+This is a small bugfix release for CRAN's sake that fixes two tests that would
+sporadically fail; they relied on timestamps being equivalent between `want` and
+`got` invocations.
+
 # loggit 2.1.0
 
 - Add `sanitizer` argument to `loggit()`, and an `unsanitizer` argument to
