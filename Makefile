@@ -11,7 +11,7 @@ SHELL := /usr/bin/env bash -euo pipefail
 all: check
 
 readme:
-	Rscript -e 'knitr::knit(input = "README.Rmd", output = "README.md")'
+	Rscript -e 'rmarkdown::render("README.Rmd")'
 
 build:
 	make -s readme
