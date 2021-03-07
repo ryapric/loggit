@@ -24,6 +24,7 @@ Ryan Price <ryapric@gmail.com>
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit)
 [![R-CMD-check](https://github.com/ryapric/loggit/workflows/R-CMD-check/badge.svg)](https://github.com/ryapric/loggit/actions)
 [![Monthly downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org/package=loggit)
+[![Support me on Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ryapric)
 <!-- badges: end -->
 
 ------------------------------------------------------------------------
