@@ -10,3 +10,4 @@ Dockerfile.*
 Jenkinsfile
 Makefile
 ^\.travis\.yml
+^\.github$
