@@ -37,10 +37,11 @@ default_ndjson_sanitizer <- function(string, sanitize = TRUE) {
   map <- list(
     "\\{" = "__LEFTBRACE__",
     "\\}" = "__RIGHTBRACE__",
-    '"' = "__DBLQUOTE__",
-    "," = "__COMMA__",
-    "\r" = "__CR__",
-    "\n" = "__LF__"
+    '"'   = "__DBLQUOTE__",
+    ","   = "__COMMA__",
+    "\r"  = "__CR__",
+    "\n"  = "__LF__",
+    ":"   = "__COLON__"
   )
   
   for (k in names(map)) {
@@ -124,7 +125,7 @@ read_ndjson <- function(logfile, unsanitizer) {
   
   # Split out the log data into individual pieces, which will include JSON keys
   # AND values
-  log_kvs <- strsplit(logdata, '\\{|"|", |: |\\}')
+  log_kvs <- strsplit(logdata, '\\{|"|", |": |\\}')
   
   rowcount <- length(log_kvs)
   for (lognum in 1:rowcount) {
