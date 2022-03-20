@@ -14,7 +14,7 @@ name: R-CMD-check
 
 jobs:
   R-CMD-check:
-    
+
     name: ${{ matrix.config.os }} (r-${{ matrix.config.r }})
 
     runs-on: ${{ matrix.config.os }}
@@ -25,12 +25,12 @@ jobs:
           - {os: ubuntu-latest, r: 'devel'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'oldrelease'}
-          - {os: macos-latest, r: 'devel'}
-          - {os: macos-latest, r: 'release'}
-          - {os: macos-latest, r: 'oldrelease'}
-          - {os: windows-latest, r: 'devel'}
-          - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'oldrelease'}
+          # - {os: macos-latest, r: 'devel'}
+          # - {os: macos-latest, r: 'release'}
+          # - {os: macos-latest, r: 'oldrelease'}
+          # - {os: windows-latest, r: 'devel'}
+          # - {os: windows-latest, r: 'release'}
+          # - {os: windows-latest, r: 'oldrelease'}
 
     steps:
       - uses: actions/checkout@v2
