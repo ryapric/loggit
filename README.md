@@ -58,10 +58,10 @@ library(loggit)
 # set_logfile("./loggit.log")
 
 message("This is a message")
-#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "INFO", "log_msg": "This is a message"}
+#> {"timestamp": "2022-03-20T16:19:54-0500", "log_lvl": "INFO", "log_msg": "This is a message"}
 #> This is a message
 warning("This is a warning")
-#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "WARN", "log_msg": "This is a warning"}
+#> {"timestamp": "2022-03-20T16:19:54-0500", "log_lvl": "WARN", "log_msg": "This is a warning"}
 #> Warning in warning("This is a warning"): This is a warning
 # stop("This actually throws a critical error, so I'm not actually going to run it here :)"))
 #> {"timestamp": "2020-05-31T20:59:33-0500", "log_lvl": "ERROR", "log_msg": "This actually throws a critical error, so I'm not actually going to run it here :)"}
@@ -80,15 +80,15 @@ log.
 
 ``` r
 loggit("ERROR", "This will log an error - but not actually throw one yet", rows = nrow(iris), anything_else = "you want to include")
-#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
+#> {"timestamp": "2022-03-20T16:19:54-0500", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
 
 # Read log file into data frame to implement logic based on entries
 logdata <- read_logs()
 print(logdata)
 #>                  timestamp log_lvl
-#> 1 2022-03-20T15:45:04-0500    INFO
-#> 2 2022-03-20T15:45:04-0500    WARN
-#> 3 2022-03-20T15:45:04-0500   ERROR
+#> 1 2022-03-20T16:19:54-0500    INFO
+#> 2 2022-03-20T16:19:54-0500    WARN
+#> 3 2022-03-20T16:19:54-0500   ERROR
 #>                                                   log_msg rows
 #> 1                                       This is a message     
 #> 2                                       This is a warning     
