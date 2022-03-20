@@ -14,8 +14,8 @@ Description:
     systems (like containers). 'loggit' is ideal for Shiny apps, data pipelines,
     modeling work flows, and more. Please see the vignettes for detailed example
     use cases.
-Version: 2.1.1.9999
-Date: 2021-02-27
+Version: 2.1.2
+Date: 2022-03-20
 Authors@R:
     person(given = "Ryan",
            family = "Price",
@@ -29,7 +29,7 @@ Suggests:
   testthat (>= 2.0.0)
 URL: https://github.com/ryapric/loggit
 BugReports: https://github.com/ryapric/loggit/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr

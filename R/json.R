@@ -98,8 +98,11 @@ write_ndjson <- function(log_df, logfile, echo = TRUE, overwrite = FALSE) {
     logdata[row] <- paste0(logdata[row], "}")
   }
   
-  # Cat out if echo is on, and write to log file
-  if (echo) cat(logdata, sep = "\n")
+  # Print out if echo is on, and write to log file
+  # Note that we waffled between cat() and base::message() for this, but cat()
+  # isn't supported by knit::knit_hooks() that some people use (see Github issue
+  # #17)
+  if (echo) base::message(logdata)
   write(logdata, file = logfile, append = !overwrite)
 }
 

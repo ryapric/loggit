@@ -1,3 +1,9 @@
+# loggit 2.1.2
+
+This is a small patch release that changes `write_ndjson` to use
+`base::message()` again instead of `cat()` for when `echo = TRUE`, specifically
+for `knitr::knit_hooks()` support (h/t @hlau_mdsol, see Github Issue #17).
+
 # loggit 2.1.1
 
 This is a small bugfix release for CRAN's sake that fixes two tests that would

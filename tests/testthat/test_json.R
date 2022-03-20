@@ -1,9 +1,11 @@
 context("JSON functions")
 
-
 # Testing both the ability to write to, and read from ndjson here, since it
 # would be hard to test that the file is ndjson without reading it back in
 # anyway
+
+# Note that you'll see several instances of overwritten timestamps, because CRAN
+# tests started failing because of ust-barely-different results
 test_that("write_logs() and read_logs() work in tandem", {
   loggit("INFO", "msg1", echo = FALSE)
   loggit("INFO", "msg2", echo = FALSE)
@@ -20,8 +22,6 @@ test_that("write_logs() and read_logs() work in tandem", {
   
   log_df_got <- read_logs(get_logfile())
   
-  # jk, set timestamps equal, since CRAN tests started failing because of
-  # just-barely-different results
   log_df_want$timestamp <- log_df_got$timestamp
   
   expect_equal(log_df_want, log_df_got)
@@ -51,8 +51,6 @@ test_that("write_logs() and read_logs() work with disallowed JSON characters via
   # for checking
   log_df_got <- read_logs(unsanitizer = function(x) {x})
   
-  # jk, set timestamps equal, since CRAN tests started failing because of
-  # just-barely-different results
   log_df_want$timestamp <- log_df_got$timestamp
   
   expect_equal(log_df_want, log_df_got)
@@ -85,6 +83,9 @@ test_that("read_logs() works with unsanitizers", {
   # Need to make two reads, for the two different unsanitizers
   log_df_got_default <- read_logs()[1, ]
   log_df_got_custom <- read_logs(unsanitizer = dash2comma_replacer)[2, ]
+  
+  log_df_got_custom$timestamp <- log_df_got_default$timestamp
+  log_df_want$timestamp <- log_df_got_default$timestamp
   
   expect_equal(log_df_want[1, ], log_df_got_default)
   expect_equal(log_df_want[2, ], log_df_got_custom)

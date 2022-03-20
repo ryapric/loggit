@@ -4,7 +4,7 @@ Ryan Price <ryapric@gmail.com>
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/loggit)](https://cran.r-project.org/package=loggit)
 [![R-CMD-check](https://github.com/ryapric/loggit/workflows/R-CMD-check/badge.svg)](https://github.com/ryapric/loggit/actions)
 [![Monthly
 downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org/package=loggit)
@@ -12,7 +12,7 @@ downloads](https://cranlogs.r-pkg.org/badges/loggit)](https://cran.r-project.org
 Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/ryapric)
 <!-- badges: end -->
 
------
+------------------------------------------------------------------------
 
 `loggit` is an [`ndJSON`](https://github.com/ndjson/ndjson-spec) logging
 library for R software. It is blazingly fast when writing logs, and has
@@ -28,19 +28,18 @@ for the Getting Started guide, as well as some other use case examples.
 There are indeed several logging packages available for R. `loggit`,
 however, takes a more modern approach approach to logging in R:
 
-  - Opting to use the JSON format, which is parsable by most modern
+-   Opting to use the JSON format, which is parsable by most modern
     software
-  - Designed with log streams in mind
-  - Unobstrusive, yet highly flexible
-  - Convenient ability to log data, then analyze that log data on the
+-   Designed with log streams in mind
+-   Unobstrusive, yet highly flexible
+-   Convenient ability to log data, then analyze that log data on the
     same host.
 
 Additionally, the boilerplate to get going with `loggit` is minimal at
 worst, only requiring you to point to the log file. If deploying your R
 code in a container ecosystem, you don’t even need to do that, since
 `loggit` will echo its formatted logs to `stdout`. No need to write
-custom formatters, handlers, levels, etc. – ***just f\&ck\#n’
-loggit\!***
+custom formatters, handlers, levels, etc. – ***just f&ck#n’ loggit!***
 
 ## Quick Examples
 
@@ -59,10 +58,10 @@ library(loggit)
 # set_logfile("./loggit.log")
 
 message("This is a message")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "INFO", "log_msg": "This is a message"}
+#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "INFO", "log_msg": "This is a message"}
 #> This is a message
 warning("This is a warning")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "WARN", "log_msg": "This is a warning"}
+#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "WARN", "log_msg": "This is a warning"}
 #> Warning in warning("This is a warning"): This is a warning
 # stop("This actually throws a critical error, so I'm not actually going to run it here :)"))
 #> {"timestamp": "2020-05-31T20:59:33-0500", "log_lvl": "ERROR", "log_msg": "This actually throws a critical error, so I'm not actually going to run it here :)"}
@@ -81,15 +80,15 @@ log.
 
 ``` r
 loggit("ERROR", "This will log an error - but not actually throw one yet", rows = nrow(iris), anything_else = "you want to include")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
+#> {"timestamp": "2022-03-20T15:45:04-0500", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
 
 # Read log file into data frame to implement logic based on entries
 logdata <- read_logs()
 print(logdata)
 #>                  timestamp log_lvl
-#> 1 2021-03-07T15:51:14-0600    INFO
-#> 2 2021-03-07T15:51:14-0600    WARN
-#> 3 2021-03-07T15:51:14-0600   ERROR
+#> 1 2022-03-20T15:45:04-0500    INFO
+#> 2 2022-03-20T15:45:04-0500    WARN
+#> 3 2022-03-20T15:45:04-0500   ERROR
 #>                                                   log_msg rows
 #> 1                                       This is a message     
 #> 2                                       This is a warning     
@@ -106,7 +105,7 @@ if (any(logdata$log_lvl == "ERROR")) {
 
 Again, [check out the
 vignettes](https://cran.r-project.org/web/packages/loggit/vignettes/)
-for more details\!
+for more details!
 
 ## Installation
 
