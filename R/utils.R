@@ -82,6 +82,6 @@ read_logs <- function(logfile, unsanitizer) {
 rotate_logs <- function(rotate_lines = 100000, logfile) {
   if (missing(logfile)) logfile <- get_logfile()
   log_df <- read_logs(logfile)
-  log_df <- log_df[(nrow(log_df) - rotate_lines + 1):nrow(log_df), ]
+  log_df <- log_df[max(1L, (nrow(log_df) - rotate_lines + 1)):nrow(log_df), ]
   write_ndjson(log_df, logfile, echo = FALSE, overwrite = TRUE)
 }
