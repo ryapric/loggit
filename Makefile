@@ -10,11 +10,11 @@ SHELL := /usr/bin/env bash -euo pipefail
 
 all: check
 
-readme:
+readme: install
 	Rscript -e 'rmarkdown::render("README.Rmd")'
 
 build:
-	make -s readme
+	# make -s readme
 	R CMD build .
 
 check: build

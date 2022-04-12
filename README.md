@@ -31,7 +31,7 @@ however, takes a more modern approach approach to logging in R:
   - Opting to use the JSON format, which is parsable by most modern
     software
   - Designed with log streams in mind
-  - Unobstrusive, yet highly flexible
+  - Unobtrusive, yet highly flexible
   - Convenient ability to log data, then analyze that log data on the
     same host.
 
@@ -59,10 +59,10 @@ library(loggit)
 # set_logfile("./loggit.log")
 
 message("This is a message")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "INFO", "log_msg": "This is a message"}
+#> {"timestamp": "2022-04-12T10:55:02-0500", "log_lvl": "INFO", "log_msg": "This is a message"}
 #> This is a message
 warning("This is a warning")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "WARN", "log_msg": "This is a warning"}
+#> {"timestamp": "2022-04-12T10:55:02-0500", "log_lvl": "WARN", "log_msg": "This is a warning"}
 #> Warning in warning("This is a warning"): This is a warning
 # stop("This actually throws a critical error, so I'm not actually going to run it here :)"))
 #> {"timestamp": "2020-05-31T20:59:33-0500", "log_lvl": "ERROR", "log_msg": "This actually throws a critical error, so I'm not actually going to run it here :)"}
@@ -81,15 +81,15 @@ log.
 
 ``` r
 loggit("ERROR", "This will log an error - but not actually throw one yet", rows = nrow(iris), anything_else = "you want to include")
-#> {"timestamp": "2021-03-07T15:51:14-0600", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
+#> {"timestamp": "2022-04-12T10:55:02-0500", "log_lvl": "ERROR", "log_msg": "This will log an error - but not actually throw one yet", "rows": "150", "anything_else": "you want to include"}
 
 # Read log file into data frame to implement logic based on entries
 logdata <- read_logs()
 print(logdata)
 #>                  timestamp log_lvl
-#> 1 2021-03-07T15:51:14-0600    INFO
-#> 2 2021-03-07T15:51:14-0600    WARN
-#> 3 2021-03-07T15:51:14-0600   ERROR
+#> 1 2022-04-12T10:55:02-0500    INFO
+#> 2 2022-04-12T10:55:02-0500    WARN
+#> 3 2022-04-12T10:55:02-0500   ERROR
 #>                                                   log_msg rows
 #> 1                                       This is a message     
 #> 2                                       This is a warning     
