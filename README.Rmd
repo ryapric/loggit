@@ -46,7 +46,7 @@ takes a more modern approach approach to logging in R:
 
 - Opting to use the JSON format, which is parsable by most modern software
 - Designed with log streams in mind
-- Unobstrusive, yet highly flexible
+- Unobtrusive, yet highly flexible
 - Convenient ability to log data, then analyze that log data on the same host.
 
 Additionally, the boilerplate to get going with `loggit` is minimal at worst,
