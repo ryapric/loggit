@@ -93,7 +93,7 @@ get_timestamp_format <- function() {
 #' also the default setting.
 #'
 #' @param rotate_lines The number of log entries to keep in the logfile.
-#'   Defaults to 100,000, see `rotate_logs()`.
+#'   Defaults to `NULL`, see `rotate_logs()` for implementation.
 #' @param confirm Print confirmation message of timestamp format? Defaults to
 #'   `TRUE`.
 #'
@@ -102,7 +102,7 @@ get_timestamp_format <- function() {
 #' set_rotate_lines(NULL) # turn off auto-truncation
 #'
 #' @export
-set_rotate_lines <- function(rotate_lines = 100000, confirm = TRUE) {
+set_rotate_lines <- function(rotate_lines = NULL, confirm = TRUE) {
   .config$rotate_lines <- rotate_lines
   if (confirm) {
     if (is.null(rotate_lines)) {
