@@ -4,11 +4,11 @@
 \alias{set_rotate_lines}
 \title{Set Log File Rotation}
 \usage{
-set_rotate_lines(rotate_lines = 1e+05, confirm = TRUE)
+set_rotate_lines(rotate_lines = NULL, confirm = TRUE)
 }
 \arguments{
 \item{rotate_lines}{The number of log entries to keep in the logfile.
-Defaults to 100,000, see \code{rotate_logs()}.}
+Defaults to \code{NULL}, see \code{rotate_logs()} for implementation.}
 
 \item{confirm}{Print confirmation message of timestamp format? Defaults to
 \code{TRUE}.}
