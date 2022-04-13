@@ -39,3 +39,27 @@ test_that("Log file is returned via read_logs()", {
   expect_true("data.frame" %in% class(log_df))
 })
 cleanup()
+
+
+# ==
+
+test_that("Automatic log rotation is working", {
+
+  rotate_lines <- 50
+
+  set_rotate_lines(rotate_lines) # turn on
+  for (i in 1:100) {
+    loggit("INFO", paste0("log_", i), echo = FALSE)
+    log_df <- read_logs()
+    expect_true(nrow(log_df) <= rotate_lines)
+  }
+
+  set_rotate_lines(NULL) # turn off
+  for (i in 1:100) {
+    loggit("INFO", paste0("log_", i), echo = FALSE)
+    log_df <- read_logs()
+    expect_true(nrow(log_df) == i + rotate_lines)
+  }
+
+})
+cleanup()
