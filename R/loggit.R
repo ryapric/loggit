@@ -81,4 +81,9 @@ loggit <- function(log_lvl, log_msg, ..., echo = TRUE, custom_log_lvl = FALSE, s
   }
   
   write_ndjson(log_df, echo = echo)
+
+  # Truncate log files if needed
+  if (!is.null(get_rotate_lines())) {
+    rotate_logs(get_rotate_lines(), get_logfile())
+  }
 }

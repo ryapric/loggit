@@ -81,3 +81,46 @@ set_timestamp_format <- function(ts_format = "%Y-%m-%dT%H:%M:%S%z", confirm = TR
 get_timestamp_format <- function() {
   .config$ts_format
 }
+
+#' Set Log File Rotation
+#'
+#' Set configuration for the number of lines after which log files are.
+#' truncated. The function will echo out the currently set line number if
+#' is set, or else it will echo that there is no limit set.
+#'
+#' This function provides a means of setting automatic log file truncation.
+#' Log files are not truncated when the value is set to `NULL`, which is
+#' also the default setting.
+#'
+#' @param rotate_lines The number of log entries to keep in the logfile.
+#'   Defaults to `NULL`, see `rotate_logs()` for implementation.
+#' @param confirm Print confirmation message of timestamp format? Defaults to
+#'   `TRUE`.
+#'
+#' @examples
+#' set_rotate_lines(100)  # set limit to 100 lines
+#' set_rotate_lines(NULL) # turn off auto-truncation
+#'
+#' @export
+set_rotate_lines <- function(rotate_lines = NULL, confirm = TRUE) {
+  .config$rotate_lines <- rotate_lines
+  if (confirm) {
+    if (is.null(rotate_lines)) {
+      print(paste0("Log file is not auto-truncated"))
+    } else {
+      print(paste0("Truncate log file after ", rotate_lines, " lines"))
+    }
+  }
+}
+
+#' Get Log File Rotation
+#'
+#' Get the configuration for the number of lines after which log files are
+#' truncated.
+#'
+#' @examples get_rotate_lines()
+#'
+#' @export
+get_rotate_lines <- function() {
+  .config$rotate_lines
+}
