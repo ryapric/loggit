@@ -35,20 +35,19 @@
 default_ndjson_sanitizer <- function(string, sanitize = TRUE) {
   # String map; will dispatch left-vs.-right replacement based on `sanitize` bool
   map <- list(
-    "\\{" = "__LEFTBRACE__",
-    "\\}" = "__RIGHTBRACE__",
-    '"'   = "__DBLQUOTE__",
-    ","   = "__COMMA__",
-    "\r"  = "__CR__",
-    "\n"  = "__LF__",
-    ":"   = "__COLON__"
+    "{" = "__LEFTBRACE__",
+    "}" = "__RIGHTBRACE__",
+    '"' = "__DBLQUOTE__",
+    "," = "__COMMA__",
+    "\r" = "__CR__",
+    "\n" = "__LF__"
   )
   
   for (k in names(map)) {
     if (sanitize) {
-      string <- gsub(k, map[k], string)
+      string <- gsub(k, map[k], string, fixed = TRUE)
     } else {
-      string <- gsub(map[k], k, string)
+      string <- gsub(map[k], k, string, fixed = TRUE)
     }
   }
   
@@ -123,15 +122,14 @@ read_ndjson <- function(logfile, unsanitizer) {
   # List first; easier to add to dynamically
   log_df <- list()
   
-  # Split out the log data into individual pieces, which will include JSON keys
-  # AND values
-  log_kvs <- strsplit(logdata, '\\{|"|", |": |\\}')
+  # Split out the log data into individual pieces, which will include JSON keys AND values
+  logdata <- substring(logdata, first = 3L, last = nchar(logdata) - 2L)
+  logdata <- strsplit(logdata, '", "', fixed = TRUE)
+  log_kvs <- lapply(logdata, FUN = function (x) unlist(strsplit(x, '": "', fixed = FALSE), use.names = FALSE))
   
   rowcount <- length(log_kvs)
   for (lognum in 1:rowcount) {
     rowdata <- log_kvs[[lognum]]
-    # Filter out emtpy values from strsplit()
-    rowdata <- rowdata[!(rowdata %in% c("", " "))]
     
     for (logfieldnum in 1:length(rowdata)) {
       # If odd, it's the key; if even, it's the value, where the preceding element

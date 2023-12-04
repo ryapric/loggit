@@ -1,13 +1,8 @@
 # loggit 2.1.2
 
-This is a small patch release with the following changes:
-
-- Change write_ndjson` to use `base::message()` again instead of `cat()` for
-  when `echo = TRUE`, specifically for `knitr::knit_hooks()` support (h/t
-  @hlau_mdsol, see Github Issue #17).
-
-- Edit the preparser and default unsanitizer for `read_ndjson()` so colons are
-  also included as problematic tokens (h/t @sigbertklinke, Github Issue #18).
+- Changes `write_ndjson` to use`base::message()` again instead of `cat()` for when `echo = TRUE`, 
+  specifically for `knitr::knit_hooks()` support (h/t @hlau_mdsol, see Github Issue #17).
+- The loading of the log by `read_logs` is significantly accelerated and handles `:` correctly
 
 # loggit 2.1.1
 
