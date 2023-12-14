@@ -5,6 +5,7 @@
 \alias{message}
 \alias{warning}
 \alias{stop}
+\alias{stopifnot}
 \title{loggit's Exception Handlers}
 \usage{
 message(..., domain = NULL, appendLF = TRUE, .loggit = TRUE, echo = TRUE)
@@ -20,11 +21,23 @@ warning(
 )
 
 stop(..., call. = TRUE, domain = NULL, .loggit = TRUE, echo = TRUE)
+
+stopifnot(..., echo = TRUE)
 }
 \arguments{
-\item{...}{zero or more objects which can be coerced to character
-    (and which are pasted together with no separator) or (for
-    \code{message} only) a single condition object.}
+\item{...}{
+  Arguments passed on to \code{\link[base:stopifnot]{base::stopifnot}}
+  \describe{
+    \item{\code{exprObject}}{alternative to \code{exprs} or \code{...}:
+    an \sQuote{expression-like} object, typically an
+    \code{\link[base]{expression}}, but also a \code{\link[base]{call}}, a
+    \code{\link[base]{name}}, or atomic constant such as \code{TRUE}.
+  }
+    \item{\code{local}}{(only when \code{exprs} is used:) indicates the
+    \code{\link[base]{environment}} in which the expressions should be
+    evaluated; by default the one from where \code{stopifnot()} has been
+    called.}
+  }}
 
 \item{domain}{see \code{\link[base]{gettext}}.  If \code{NA}, messages will
     not be translated, see also the note in \code{\link[base]{stop}}.}
@@ -57,5 +70,7 @@ of the exception messages via \code{loggit()}.
   if (2 < 1) warning("You may want to review that math, and so this is your warning")
 
   if (2 < 1) stop("This is a completely false condition, which throws an error")
+
+  stopifnot("This is a completely false condition, which throws an error" = 1 > 2)
 
 }

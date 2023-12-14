@@ -37,4 +37,17 @@ test_that("stop works as it does in base R", {
   expect_true(logdata$log_msg == 'this should be concatenated in the log')
 })
 
+test_that("stop works as it does in base R", {
+  expect_error(stopifnot("this is also a stop test" = 1 > 2, echo = FALSE),
+               regexp = "this is also a stop test")
+
+  expect_error(stopifnot("fuu" = TRUE, "this is also a stopifnot test" = 1 > 2, "and this" = FALSE, echo = FALSE),
+               regexp = "this is also a stopifnot test")
+  # Test log
+  logdata <- read_logs()
+  logdata <- logdata[logdata$log_lvl == 'ERROR',]
+  logdata <- logdata[nrow(logdata),]
+  expect_identical(logdata$log_msg, expected = "this is also a stopifnot test")
+})
+
 cleanup()
