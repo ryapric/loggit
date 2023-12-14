@@ -37,7 +37,7 @@ test_that("stop works as it does in base R", {
   expect_true(logdata$log_msg == 'this should be concatenated in the log')
 })
 
-test_that("stop works as it does in base R", {
+test_that("stopifnot works as it does in base R", {
   expect_error(stopifnot("this is also a stop test" = 1 > 2, echo = FALSE),
                regexp = "this is also a stop test")
 
