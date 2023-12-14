@@ -1,7 +1,7 @@
 # Helper function to append rows 
 bind_rows_loggit <- function(df1, df2) {
-  stopifnot('data.frame' %in% class(df1))
-  stopifnot('data.frame' %in% class(df2))
+  base::stopifnot('data.frame' %in% class(df1))
+  base::stopifnot('data.frame' %in% class(df2))
   
   headers1 <- colnames(df1)
   headers2 <- colnames(df2)

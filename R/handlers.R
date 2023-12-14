@@ -63,3 +63,21 @@ stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, echo = TRUE) 
   }
   base::stop(unlist(args), call. = call., domain = domain)
 }
+
+
+#' @rdname handlers
+#'
+#' @inheritDotParams base::stopifnot
+#' @inheritParams stop
+#'
+#' @examples
+#'   stopifnot("This is a completely false condition, which throws an error" = 2 > 1)
+#'
+#' @export
+stopifnot <- function (...,  echo = TRUE) {
+  tryCatch({
+    base::stopifnot(...)
+  }, error = function (e) {
+    stop(e$message, call. = FALSE, echo = echo)
+  })
+}
