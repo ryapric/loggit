@@ -71,7 +71,7 @@ stop <- function(..., call. = TRUE, domain = NULL, .loggit = TRUE, echo = TRUE) 
 #' @inheritParams stop
 #'
 #' @examples
-#'   stopifnot("This is a completely false condition, which throws an error" = 1 > 2)
+#'   stopifnot("This is a completely false condition, which throws an error" = 2 > 1)
 #'
 #' @export
 stopifnot <- function (...,  echo = TRUE) {

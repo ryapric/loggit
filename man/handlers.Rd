@@ -71,6 +71,6 @@ of the exception messages via \code{loggit()}.
 
   if (2 < 1) stop("This is a completely false condition, which throws an error")
 
-  stopifnot("This is a completely false condition, which throws an error" = 1 > 2)
+  stopifnot("This is a completely false condition, which throws an error" = 2 > 1)
 
 }
